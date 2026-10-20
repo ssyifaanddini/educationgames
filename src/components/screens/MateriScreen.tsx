@@ -457,7 +457,7 @@ export const MateriScreen: React.FC<MateriScreenProps> = ({
       {/* READING DETAIL MODAL FOR PANCASILA PETA MATERI ITEM */}
       {activePetaItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-xs">
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-b from-[#fffef5] via-[#fef9eb] to-[#fef3c7] dark:bg-gradient-to-b dark:from-[#3a2d1d] dark:via-[#423420] dark:to-[#2e2316] rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-amber-400 dark:border-amber-500">
+          <div className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto bg-gradient-to-b from-[#fffef5] via-[#fef9eb] to-[#fef3c7] dark:bg-gradient-to-b dark:from-[#3a2d1d] dark:via-[#423420] dark:to-[#2e2316] rounded-3xl p-5 sm:p-8 shadow-2xl border-4 border-amber-400 dark:border-amber-500">
             {/* Close Button */}
             <button
               onClick={() => {
@@ -487,13 +487,32 @@ export const MateriScreen: React.FC<MateriScreenProps> = ({
             {/* Audio Read-Aloud Button */}
             <div className="mb-4 flex items-center gap-2">
               <button
-                onClick={() =>
-                  handleReadAloud(
-                    `${activePetaItem.title}. ${activePetaItem.readingSummary}. Poin penting: ${activePetaItem.keyPoints.join(
-                      '. '
-                    )}`
-                  )
-                }
+                onClick={() => {
+                  let speechScript = `${activePetaItem.title}. `;
+                  if (activePetaItem.detailedSections && activePetaItem.detailedSections.length > 0) {
+                    activePetaItem.detailedSections.forEach((sec) => {
+                      speechScript += `${sec.title}. `;
+                      if (sec.introParagraphs) speechScript += sec.introParagraphs.join(' ') + ' ';
+                      if (sec.bulletPoints) {
+                        sec.bulletPoints.forEach((bp) => {
+                          speechScript += `${bp.label || ''}: ${bp.text}. `;
+                        });
+                      }
+                      if (sec.cultureItems) {
+                        sec.cultureItems.forEach((ci) => {
+                          speechScript += `${ci.category}: ${ci.name}. ${ci.description} `;
+                        });
+                      }
+                      if (sec.closingNote) speechScript += sec.closingNote + ' ';
+                      if (sec.calloutBox) {
+                        speechScript += `${sec.calloutBox.heading} ${sec.calloutBox.points.join('. ')}. `;
+                      }
+                    });
+                  } else {
+                    speechScript += `${activePetaItem.readingSummary}. Poin penting: ${activePetaItem.keyPoints.join('. ')}`;
+                  }
+                  handleReadAloud(speechScript);
+                }}
                 className="btn-chunky inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-800 dark:text-sky-200 text-xs font-black border border-sky-300 shadow-[0_2px_0_#0284c7] cursor-pointer"
               >
                 {isSpeaking ? (
@@ -504,55 +523,193 @@ export const MateriScreen: React.FC<MateriScreenProps> = ({
                 ) : (
                   <>
                     <Volume2 className="w-4 h-4 text-sky-600" />
-                    <span>Baca Nyaring (Suara Bahasa Indonesia)</span>
+                    <span>Baca Nyaring Seluruh Materi (Suara Bahasa Indonesia)</span>
                   </>
                 )}
               </button>
             </div>
 
-            {/* Reading Summary */}
-            <div className="bg-white/95 dark:bg-[#4d3c26] p-4 rounded-2xl border-2 border-amber-300 dark:border-amber-600 mb-4 text-sm sm:text-base text-amber-950 dark:text-amber-100 font-bold leading-relaxed shadow-xs">
-              {activePetaItem.readingSummary}
-            </div>
-
-            {/* Key Points */}
-            <div className="mb-5">
-              <h4 className="font-heading font-black text-base text-amber-950 dark:text-amber-100 mb-2.5 flex items-center gap-1.5">
-                <span>🌾</span>
-                <span>Poin-Poin Penting untuk Diingat:</span>
-              </h4>
-              <ul className="space-y-2">
-                {activePetaItem.keyPoints.map((point, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-2.5 text-xs sm:text-sm text-amber-950 dark:text-amber-100 bg-white/90 dark:bg-[#4a3a25] p-3 rounded-2xl border border-amber-300 dark:border-amber-600/80 font-bold shadow-xs"
+            {/* IF DETAILED SECTIONS EXIST (SUB-MATERI A LENGKAP DENGAN FOTO) */}
+            {activePetaItem.detailedSections && activePetaItem.detailedSections.length > 0 ? (
+              <div className="space-y-6 mb-6">
+                {activePetaItem.detailedSections.map((section) => (
+                  <div
+                    key={section.number}
+                    className="bg-white/95 dark:bg-[#443522]/95 rounded-2xl p-4 sm:p-5 border-2 border-amber-300 dark:border-amber-600/80 shadow-xs"
                   >
-                    <span className="w-5 h-5 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5 shadow-xs">
-                      {idx + 1}
-                    </span>
-                    <span>{point}</span>
-                  </li>
+                    {/* Section Title */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="w-7 h-7 rounded-lg bg-amber-400 text-amber-950 font-black text-xs flex items-center justify-center shrink-0">
+                        {section.number}
+                      </span>
+                      <h4 className="font-heading font-black text-base sm:text-lg text-amber-950 dark:text-amber-100">
+                        {section.title}
+                      </h4>
+                    </div>
+
+                    {/* Intro Paragraphs */}
+                    {section.introParagraphs && section.introParagraphs.map((para, pIdx) => (
+                      <p
+                        key={pIdx}
+                        className="text-xs sm:text-sm text-amber-950/90 dark:text-amber-100/90 font-medium leading-relaxed mb-3 last:mb-0"
+                      >
+                        {para}
+                      </p>
+                    ))}
+
+                    {/* Bullet Points */}
+                    {section.bulletPoints && (
+                      <div className="space-y-2 my-3">
+                        {section.bulletPoints.map((bp, bpIdx) => (
+                          <div
+                            key={bpIdx}
+                            className="flex items-start gap-2 bg-amber-50/80 dark:bg-[#382b1c] p-2.5 rounded-xl border border-amber-200 dark:border-amber-700/60 text-xs sm:text-sm"
+                          >
+                            <span className="text-amber-600 dark:text-amber-400 font-bold shrink-0 mt-0.5">•</span>
+                            <div className="text-amber-950 dark:text-amber-100 font-medium">
+                              {bp.label && (
+                                <strong className="font-black text-amber-900 dark:text-amber-200 mr-1.5">
+                                  {bp.label}:
+                                </strong>
+                              )}
+                              <span>{bp.text}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Closing Note if any */}
+                    {section.closingNote && (
+                      <p className="text-xs sm:text-sm text-amber-900 dark:text-amber-200 font-bold italic mt-2.5 bg-amber-100/60 dark:bg-amber-950/40 p-2.5 rounded-xl border border-amber-300/80">
+                        💡 {section.closingNote}
+                      </p>
+                    )}
+
+                    {/* Culture Items with Photos (Reog Ponorogo, Tifa, Pakaian Adat Kalimantan) */}
+                    {section.cultureItems && section.cultureItems.length > 0 && (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 my-4">
+                        {section.cultureItems.map((ci, cIdx) => (
+                          <div
+                            key={cIdx}
+                            className="overflow-hidden rounded-2xl bg-amber-50/90 dark:bg-[#342717] border-2 border-amber-300 dark:border-amber-600 shadow-sm flex flex-col"
+                          >
+                            <div className="relative aspect-4/3 w-full overflow-hidden bg-amber-200/50">
+                              <img
+                                src={ci.imageSrc}
+                                alt={ci.imageAlt}
+                                referrerPolicy="no-referrer"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                onError={(e) => {
+                                  // fallback if public url needs direct relative path
+                                  const img = e.currentTarget;
+                                  if (ci.imageSrc.includes('reog')) {
+                                    img.src = '/src/assets/images/reog_ponorogo_1792508180630.jpg';
+                                  } else if (ci.imageSrc.includes('tifa')) {
+                                    img.src = '/src/assets/images/alat_musik_tifa_1792508179801.jpg';
+                                  } else if (ci.imageSrc.includes('kalimantan')) {
+                                    img.src = '/src/assets/images/pakaian_adat_kalimantan_1792508181218.jpg';
+                                  }
+                                }}
+                              />
+                              <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/70 text-amber-200 text-[10px] font-black uppercase tracking-wider backdrop-blur-xs">
+                                {ci.category}
+                              </span>
+                            </div>
+                            <div className="p-3 flex-1 flex flex-col justify-between">
+                              <div>
+                                <h5 className="font-heading font-black text-sm text-amber-950 dark:text-amber-100 mb-0.5">
+                                  {ci.name}
+                                </h5>
+                                <span className="text-[10px] font-bold text-amber-700 dark:text-amber-300 block mb-1.5">
+                                  📍 {ci.origin}
+                                </span>
+                                <p className="text-xs text-amber-900/90 dark:text-amber-200/90 font-medium leading-relaxed">
+                                  {ci.description}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Section 5: Callout Box "Ayo Ingat!" */}
+                    {section.calloutBox && (
+                      <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-100 via-orange-50 to-yellow-100 dark:from-amber-950/70 dark:via-[#47341d] dark:to-yellow-950/50 border-2 border-amber-400 dark:border-amber-500 shadow-sm">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-black uppercase tracking-wider mb-2">
+                          <Lightbulb className="w-3.5 h-3.5 text-yellow-200" />
+                          <span>{section.calloutBox.badge}</span>
+                        </div>
+                        <p className="font-heading font-black text-sm sm:text-base text-amber-950 dark:text-amber-100 mb-3">
+                          {section.calloutBox.heading}
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {section.calloutBox.points.map((pt, ptIdx) => (
+                            <div
+                              key={ptIdx}
+                              className="flex items-center gap-2 bg-white/90 dark:bg-[#342717] p-2 rounded-xl border border-amber-300 dark:border-amber-700 text-xs text-amber-950 dark:text-amber-100 font-bold"
+                            >
+                              <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shrink-0 font-black">
+                                ✓
+                              </span>
+                              <span>{pt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 ))}
-              </ul>
-            </div>
-
-            {/* Fun Fact */}
-            {activePetaItem.funFact && (
-              <div className="mb-4 p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200">
-                <div className="font-black flex items-center gap-1 mb-1">
-                  <Lightbulb className="w-4 h-4 text-emerald-600" />
-                  <span>Tahukah Kamu?</span>
+              </div>
+            ) : (
+              /* STANDARD VIEW FOR OTHER PETA MATERI ITEMS */
+              <>
+                {/* Reading Summary */}
+                <div className="bg-white/95 dark:bg-[#4d3c26] p-4 rounded-2xl border-2 border-amber-300 dark:border-amber-600 mb-4 text-sm sm:text-base text-amber-950 dark:text-amber-100 font-bold leading-relaxed shadow-xs">
+                  {activePetaItem.readingSummary}
                 </div>
-                <p className="font-medium">{activePetaItem.funFact}</p>
-              </div>
-            )}
 
-            {/* Example Story */}
-            {activePetaItem.exampleStory && (
-              <div className="mb-5 p-3.5 rounded-2xl bg-purple-50 dark:bg-purple-950/60 border border-purple-300 dark:border-purple-800 text-xs sm:text-sm text-purple-900 dark:text-purple-200">
-                <div className="font-black mb-1">📖 Cerita Sehari-hari:</div>
-                <p className="font-medium italic">&ldquo;{activePetaItem.exampleStory}&rdquo;</p>
-              </div>
+                {/* Key Points */}
+                <div className="mb-5">
+                  <h4 className="font-heading font-black text-base text-amber-950 dark:text-amber-100 mb-2.5 flex items-center gap-1.5">
+                    <span>🌾</span>
+                    <span>Poin-Poin Penting untuk Diingat:</span>
+                  </h4>
+                  <ul className="space-y-2">
+                    {activePetaItem.keyPoints.map((point, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2.5 text-xs sm:text-sm text-amber-950 dark:text-amber-100 bg-white/90 dark:bg-[#4a3a25] p-3 rounded-2xl border border-amber-300 dark:border-amber-600/80 font-bold shadow-xs"
+                      >
+                        <span className="w-5 h-5 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5 shadow-xs">
+                          {idx + 1}
+                        </span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Fun Fact */}
+                {activePetaItem.funFact && (
+                  <div className="mb-4 p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200">
+                    <div className="font-black flex items-center gap-1 mb-1">
+                      <Lightbulb className="w-4 h-4 text-emerald-600" />
+                      <span>Tahukah Kamu?</span>
+                    </div>
+                    <p className="font-medium">{activePetaItem.funFact}</p>
+                  </div>
+                )}
+
+                {/* Example Story */}
+                {activePetaItem.exampleStory && (
+                  <div className="mb-5 p-3.5 rounded-2xl bg-purple-50 dark:bg-purple-950/60 border border-purple-300 dark:border-purple-800 text-xs sm:text-sm text-purple-900 dark:text-purple-200">
+                    <div className="font-black mb-1">📖 Cerita Sehari-hari:</div>
+                    <p className="font-medium italic">&ldquo;{activePetaItem.exampleStory}&rdquo;</p>
+                  </div>
+                )}
+              </>
             )}
 
             {/* Bottom Modal Actions */}

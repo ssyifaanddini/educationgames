@@ -3,6 +3,30 @@
  * Struktur Semester Ganjil & Genap dengan Bab dan Peta Materi Lengkap
  */
 
+export interface MateriCultureItem {
+  category: string;
+  name: string;
+  origin: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+export interface MateriSubSection {
+  number: number;
+  title: string;
+  introParagraphs?: string[];
+  bulletPoints?: { label?: string; text: string }[];
+  closingNote?: string;
+  cultureItems?: MateriCultureItem[];
+  calloutBox?: {
+    badge: string;
+    heading: string;
+    summary: string;
+    points: string[];
+  };
+}
+
 export interface PetaMateriItem {
   code: 'A' | 'B' | 'C' | 'D';
   letter: string;
@@ -14,6 +38,7 @@ export interface PetaMateriItem {
   keyPoints: string[];
   funFact?: string;
   exampleStory?: string;
+  detailedSections?: MateriSubSection[];
 }
 
 export interface PancasilaBab {
@@ -55,15 +80,108 @@ export const PANCASILA_BABS: PancasilaBab[] = [
         icon: '🇮🇩',
         questionCount: 15,
         readingSummary:
-          'Identitas masyarakat adalah ciri khas atau jati diri yang membedakan satu kelompok masyarakat dengan kelompok lainnya. Ciri khas ini diwariskan turun-temurun sebagai kekayaan budaya bangsa Indonesia.',
+          'Identitas adalah ciri atau keterangan yang menunjukkan siapa diri seseorang. Setiap orang memiliki identitas yang dapat sama maupun berbeda dengan orang lain.',
         keyPoints: [
-          'Unsur Identitas Budaya: Bahasa daerah, pakaian adat nusantara, kesenian daerah (seperti Reog Ponorogo), tarian tradisional, rumah adat, dan makanan khas.',
-          'Alat Musik Tradisional: Tifa dari Papua dan Maluku, Angklung dari Jawa Barat, Gamelan dari Jawa dan Bali, Sasando dari NTT.',
-          'Suku Bangsa: Indonesia terdiri dari ratusan suku bangsa yang hidup berdampingan secara damai, rukun, dan setara.'
+          'Identitas diri: keterangan tentang diri sendiri, misalnya nama, tempat asal, bahasa yang digunakan, serta budaya keluarga.',
+          'Identitas keluarga: ciri latar belakang keluarga, asal daerah orang tua, bahasa di rumah, dan tradisi keluarga.',
+          'Identitas teman: dikenali melalui perkenalan dan interaksi sehari-hari dengan sopan.',
+          'Identitas budaya masyarakat: kesenian daerah (Reog Ponorogo), alat musik tradisional (Tifa), pakaian adat, bahasa daerah, dan makanan khas.',
+          'Perbedaan identitas adalah bagian keberagaman Indonesia yang harus dikenali dan dihargai.'
         ],
         funFact: 'Indonesia memiliki lebih dari 718 bahasa daerah dan lebih dari 1.300 suku bangsa dari Sabang sampai Merauke!',
         exampleStory:
-          'Di kelas 4, Maria dari suku Dani memperkenalkan alat musik Tifa kepada teman-temannya. Andi yang berasal dari Bugis menceritakan pakaian Baju Bodo miliknya. Semuanya bangga memperkenalkan budayanya!'
+          'Di kelas 4, Maria dari suku Dani memperkenalkan alat musik Tifa kepada teman-temannya. Andi yang berasal dari Bugis menceritakan pakaian Baju Bodo miliknya. Semuanya bangga memperkenalkan budayanya!',
+        detailedSections: [
+          {
+            number: 1,
+            title: '1. Apa itu identitas?',
+            introParagraphs: [
+              'Identitas adalah ciri atau keterangan yang menunjukkan siapa diri seseorang. Setiap orang memiliki identitas yang dapat sama maupun berbeda dengan orang lain.',
+              'Identitas dapat berkaitan dengan nama, tempat asal, bahasa, budaya, suku bangsa, agama atau kepercayaan, serta kebiasaan dalam keluarga.'
+            ]
+          },
+          {
+            number: 2,
+            title: '2. Identitas diri, keluarga, dan teman',
+            bulletPoints: [
+              {
+                label: 'Identitas diri',
+                text: 'keterangan tentang diri sendiri, misalnya nama, tempat asal, bahasa yang digunakan, serta budaya keluarga.'
+              },
+              {
+                label: 'Identitas keluarga',
+                text: 'ciri atau latar belakang keluarga, misalnya asal daerah orang tua, bahasa yang digunakan di rumah, dan tradisi keluarga.'
+              },
+              {
+                label: 'Identitas teman',
+                text: 'ciri atau latar belakang teman yang dapat kita kenali melalui perkenalan dan interaksi sehari-hari.'
+              }
+            ],
+            closingNote:
+              'Kita dapat mengenal identitas teman dengan bertanya secara sopan dan mendengarkan ceritanya.'
+          },
+          {
+            number: 3,
+            title: '3. Identitas budaya masyarakat',
+            introParagraphs: [
+              'Masyarakat Indonesia memiliki beragam identitas budaya. Contohnya meliputi:'
+            ],
+            cultureItems: [
+              {
+                category: 'Kesenian Daerah',
+                name: 'Reog Ponorogo',
+                origin: 'Ponorogo, Jawa Timur',
+                description:
+                  'Reog Ponorogo merupakan salah satu kesenian tradisional yang berasal dari Ponorogo, Jawa Timur.',
+                imageSrc: '/reog-ponorogo.jpg',
+                imageAlt: 'Kesenian Tradisional Reog Ponorogo dari Ponorogo, Jawa Timur'
+              },
+              {
+                category: 'Alat Musik Tradisional',
+                name: 'Tifa',
+                origin: 'Maluku dan Papua',
+                description:
+                  'Tifa merupakan alat musik tradisional yang dikenal di wilayah Indonesia bagian timur, termasuk Maluku dan Papua.',
+                imageSrc: '/alat-musik-tifa.jpg',
+                imageAlt: 'Alat Musik Tradisional Tifa dari Maluku dan Papua'
+              },
+              {
+                category: 'Pakaian Adat',
+                name: 'Pakaian Adat Kalimantan',
+                origin: 'Kalimantan',
+                description:
+                  'Pakaian adat mencerminkan kekayaan tradisi dan budaya berbagai daerah di Indonesia.',
+                imageSrc: '/pakaian-adat-kalimantan.jpg',
+                imageAlt: 'Pakaian Adat Tradisional Kalimantan'
+              }
+            ],
+            closingNote:
+              'Bahasa daerah, makanan tradisional, tarian, pakaian adat, dan kebiasaan masyarakat juga dapat menjadi bagian dari identitas budaya.'
+          },
+          {
+            number: 4,
+            title: '4. Identitas yang berbeda bukan alasan untuk membeda-bedakan',
+            introParagraphs: [
+              'Teman-teman kita mungkin memiliki bahasa daerah, kebiasaan keluarga, budaya, atau agama dan kepercayaan yang berbeda. Perbedaan tersebut merupakan bagian dari keberagaman masyarakat Indonesia.',
+              'Kita perlu mengenali perbedaan agar dapat memahami orang lain dan hidup berdampingan dengan baik.'
+            ]
+          },
+          {
+            number: 5,
+            title: '5. Ayo ingat!',
+            calloutBox: {
+              badge: 'Ayo Ingat!',
+              heading: 'Ingat, ya! Identitas setiap orang dan kelompok masyarakat dapat berbeda. Perbedaan tersebut merupakan bagian dari keberagaman Indonesia.',
+              summary: 'Poin penting yang harus selalu diingat:',
+              points: [
+                'Setiap orang memiliki identitas.',
+                'Identitas masyarakat memiliki beragam bentuk.',
+                'Setiap daerah mempunyai budaya dan ciri khas.',
+                'Perbedaan identitas perlu dikenali dan dihargai.'
+              ]
+            }
+          }
+        ]
       },
       {
         code: 'B',
