@@ -9,7 +9,7 @@ import { Users, Clock, Sparkles, Plus, Trash2, ArrowLeft, Play, UserCheck, Star,
 interface GameSetupScreenProps {
   subject: Subject;
   onBack: () => void;
-  onStartGame: (players: Player[], timeMode: TimeMode, enableLuckCards: boolean) => void;
+  onStartGame: (players: Player[], timeMode: TimeMode, enableLuckCards: boolean, materiFilter: string) => void;
 }
 
 interface PlayerDraft {
@@ -99,6 +99,7 @@ export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
 
   const [timeMode, setTimeMode] = useState<TimeMode>('30m');
   const [enableLuckCards, setEnableLuckCards] = useState<boolean>(true);
+  const [selectedMateri, setSelectedMateri] = useState<string>('all');
 
   // Characters already chosen by any player
   const chosenCharacterIds = playerDrafts.map((p) => p.characterId);
@@ -190,7 +191,7 @@ export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
       };
     });
 
-    onStartGame(finalPlayers, timeMode, enableLuckCards);
+    onStartGame(finalPlayers, timeMode, enableLuckCards, selectedMateri);
   };
 
   return (
@@ -431,6 +432,52 @@ export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
             <span>Tambah Pemain Tambahan ({playerDrafts.length}/5)</span>
           </button>
         )}
+
+        {/* Section: Materi Soal Pembelajaran (A, B, C, D atau Semua 70 Soal) */}
+        <div className="mb-6 p-4 rounded-2xl bg-white/80 dark:bg-slate-800/70 border-3 border-amber-300 dark:border-amber-600/60 shadow-sm">
+          <label className="flex items-center gap-2 text-xs sm:text-sm font-black text-amber-950 dark:text-amber-200 mb-2.5">
+            <span className="w-7 h-7 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center text-sm shadow-inner">
+              📚
+            </span>
+            <span>Pilihan Materi Soal yang Dimainkan:</span>
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {[
+              { id: 'all', code: 'A-D', label: 'Semua Materi (70 Soal Lengkap)', desc: 'Materi A, B, C, & D dari buku panduan' },
+              { id: 'A', code: 'Materi A', label: 'A: Identitas Masyarakat', desc: '15 soal (A-L01 s.d. A-TI02)' },
+              { id: 'B', code: 'Materi B', label: 'B: Menghargai Perbedaan', desc: '18 soal (B-L01 s.d. B-TI03)' },
+              { id: 'C', code: 'Materi C', label: 'C: Perangkat Desa & Kelurahan', desc: '18 soal (C-L01 s.d. C-TI03)' },
+              { id: 'D', code: 'Materi D', label: 'D: Menjelajah Lingkungan', desc: '19 soal (D-L01 s.d. D-TI02)' },
+            ].map((mat) => {
+              const isSelected = selectedMateri === mat.id;
+              return (
+                <button
+                  key={mat.id}
+                  type="button"
+                  onClick={() => {
+                    audio.playClick();
+                    setSelectedMateri(mat.id);
+                  }}
+                  className={`btn-chunky p-2.5 rounded-xl text-left border-2 transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-amber-400 text-amber-950 border-amber-600 shadow-[0_3px_0_#d97706] font-black'
+                      : 'bg-amber-50/80 dark:bg-slate-700/60 text-amber-900 dark:text-amber-200 border-amber-200 dark:border-slate-600 hover:bg-amber-100 shadow-xs'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-heading font-black">{mat.label}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-bold ${isSelected ? 'bg-amber-600 text-white' : 'bg-amber-200/80 dark:bg-amber-900/50'}`}>
+                      {mat.code}
+                    </span>
+                  </div>
+                  <span className={`text-[10px] block mt-0.5 ${isSelected ? 'text-amber-950 font-bold' : 'text-amber-700/80 dark:text-amber-300'}`}>
+                    {mat.desc}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Section 3: Time Mode Selection (Chunky Colorful Buttons) */}
         <div className="mb-6 p-4 rounded-2xl bg-white/80 dark:bg-slate-800/70 border-3 border-amber-300 dark:border-amber-600/60 shadow-sm">

@@ -26,6 +26,7 @@ export default function App() {
   const [gamePlayers, setGamePlayers] = useState<Player[]>([]);
   const [timeMode, setTimeMode] = useState<TimeMode>('30m');
   const [enableLuckCards, setEnableLuckCards] = useState<boolean>(true);
+  const [materiFilter, setMateriFilter] = useState<string>('all');
   const [playDurationSec, setPlayDurationSec] = useState<number>(0);
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem('gambreng_dark_mode') === 'true';
@@ -58,10 +59,11 @@ export default function App() {
   };
 
   // Screen Transitions
-  const handleStartGameSetup = (players: Player[], mode: TimeMode, luck: boolean) => {
+  const handleStartGameSetup = (players: Player[], mode: TimeMode, luck: boolean, materi: string = 'all') => {
     setGamePlayers(players);
     setTimeMode(mode);
     setEnableLuckCards(luck);
+    setMateriFilter(materi);
     setCurrentScreen('game');
   };
 
@@ -150,6 +152,7 @@ export default function App() {
               players={gamePlayers}
               timeMode={timeMode}
               enableLuckCards={enableLuckCards}
+              materiFilter={materiFilter}
               onFinishGame={handleFinishGame}
               onNavigateHome={() => setCurrentScreen('cover')}
               darkMode={darkMode}

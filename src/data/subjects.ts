@@ -2,6 +2,15 @@ import { Subject } from '../types/game';
 
 export const SUBJECTS: Subject[] = [
   {
+    id: 'pancasila',
+    name: 'Pendidikan Pancasila',
+    icon: '🦅',
+    color: '#ef4444',
+    badgeBg: 'bg-red-100 text-red-800 dark:bg-red-900/60 dark:text-red-200',
+    borderColor: 'border-red-400',
+    description: 'Identitas Masyarakat, Menghargai Perbedaan, Perangkat Desa & Kelurahan, Menjelajah Lingkungan (Materi A, B, C, D - 70 Soal Lengkap).',
+  },
+  {
     id: 'matematika',
     name: 'Matematika',
     icon: '📐',
@@ -27,15 +36,6 @@ export const SUBJECTS: Subject[] = [
     badgeBg: 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200',
     borderColor: 'border-amber-400',
     description: 'Ide pokok, kalimat transitif/intransitif, denah, dan teks petunjuk.',
-  },
-  {
-    id: 'pancasila',
-    name: 'Pendidikan Pancasila',
-    icon: '🦅',
-    color: '#ef4444',
-    badgeBg: 'bg-red-100 text-red-800 dark:bg-red-900/60 dark:text-red-200',
-    borderColor: 'border-red-400',
-    description: 'Nilai-nilai Pancasila, aturan norma, hak & kewajiban, serta kebinekaan.',
   },
   {
     id: 'bahasa-inggris',

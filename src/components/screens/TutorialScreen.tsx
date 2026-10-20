@@ -42,12 +42,12 @@ const STEPS: Step[] = [
     highlight: 'Kamu juga bisa mengetuk tumpukan kartu di samping papan kapan saja!',
   },
   {
-    title: '4. Jawab & Praktikkan Bersama',
+    title: '4. Ketik Jawaban Langsung di Game',
     badge: 'Langkah 4',
     badgeColor: 'bg-pink-100 text-pink-800 border-pink-300',
-    icon: '🗣️',
-    description: 'Kamu boleh mengganti tingkat kesulitan sebelum menjawab! Gunakan tombol "Baca Nyaring" untuk mendengarkan soal. Jawaban salah TIDAK mengurangi poin dan bidakmu tidak akan mundur!',
-    highlight: 'Belajar menyenangkan tanpa rasa takut salah!',
+    icon: '✍️',
+    description: 'Setiap pemain mengetik jawabannya langsung di kotak isian yang tersedia. Kunci jawaban resmi dan penjelasan materi akan langsung muncul setelah jawaban dikirim!',
+    highlight: 'Belajar interaktif dengan mengetik langsung di aplikasi!',
   },
   {
     title: '5. Semua Bermain Sampai Sekolah',

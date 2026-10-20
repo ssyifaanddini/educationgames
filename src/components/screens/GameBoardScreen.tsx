@@ -14,6 +14,7 @@ import {
 } from '../../types/game';
 import { BOARD_TILES, TILE_META } from '../../data/boardConfig';
 import questionsData from '../../data/questions.json';
+import { CURRICULUM_QUESTIONS } from '../../data/curriculumQuestions';
 import { CharacterAvatar } from '../common/CharacterAvatar';
 import { CharacterPawn } from '../common/CharacterPawn';
 import { audio } from '../../utils/audio';
@@ -39,6 +40,7 @@ interface GameBoardScreenProps {
   players: Player[];
   timeMode: TimeMode;
   enableLuckCards: boolean;
+  materiFilter?: string;
   onFinishGame: (finalPlayers: Player[], playDurationSec: number) => void;
   onNavigateHome: () => void;
   darkMode?: boolean;
@@ -82,6 +84,7 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
   players: initialPlayers,
   timeMode,
   enableLuckCards,
+  materiFilter,
   onFinishGame,
   onNavigateHome,
   darkMode,
@@ -100,6 +103,10 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
   const [activeChallenge, setActiveChallenge] = useState<ChallengeCard | null>(null);
   const [activeStory, setActiveStory] = useState<StoryCard | null>(null);
   const [activeLuck, setActiveLuck] = useState<LuckCard | null>(null);
+
+  // Tracking question codes used in current session to prevent quick repetition
+  const [usedQuestionCodes, setUsedQuestionCodes] = useState<string[]>([]);
+  const [teacherApproved, setTeacherApproved] = useState<boolean>(false);
 
   // Answer states
   const [selectedOption, setSelectedOption] = useState<string>('');
@@ -240,22 +247,14 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
     setSelectedOption('');
     setShortAnswerInput('');
     setStoryTextInput('');
+    setTeacherApproved(false);
 
     if (type === 'low' || type === 'middle' || type === 'high') {
       setSelectedQuestionLevel(type);
-      loadQuestion(type);
-    } else if (type === 'science') {
-      const challenges = questionsData.scienceChallenges as ChallengeCard[];
-      const chosen = challenges[Math.floor(Math.random() * challenges.length)];
-      setActiveChallenge(chosen);
-    } else if (type === 'fun') {
-      const funChallenges = questionsData.funChallenges as ChallengeCard[];
-      const chosen = funChallenges[Math.floor(Math.random() * funChallenges.length)];
-      setActiveChallenge(chosen);
-    } else if (type === 'story') {
-      const stories = questionsData.storyCards as StoryCard[];
-      const chosen = stories[Math.floor(Math.random() * stories.length)];
-      setActiveStory(chosen);
+      loadQuestionByLevel(type);
+    } else if (type === 'science' || type === 'fun' || type === 'story') {
+      // Tantangan Istimewa (TI): loaded from the curriculum TI questions!
+      loadTantanganIstimewaQuestion();
     } else if (type === 'luck') {
       if (!enableLuckCards) {
         // Fallback to middle question if luck cards disabled
@@ -268,24 +267,56 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
     }
   };
 
-  const loadQuestion = (level: QuestionLevel) => {
-    const allQuestions = questionsData.questions as QuestionCard[];
-    // Filter by subject and level
-    const matched = allQuestions.filter(
-      (q) => q.subjectId === subject.id && q.level === level
-    );
-    const candidate = matched.length > 0 ? matched : allQuestions.filter((q) => q.level === level);
-    const randomQ = candidate[Math.floor(Math.random() * candidate.length)];
+  const loadQuestionByLevel = (level: QuestionLevel) => {
+    // If subject is pancasila or default, load from CURRICULUM_QUESTIONS
+    let pool = CURRICULUM_QUESTIONS.filter((q) => q.level === level && !q.code?.includes('TI'));
+
+    // Apply materi filter (A, B, C, D) if selected
+    if (materiFilter && materiFilter !== 'all') {
+      const filtered = pool.filter((q) => q.materiCode === materiFilter);
+      if (filtered.length > 0) pool = filtered;
+    }
+
+    if (subject.id !== 'pancasila') {
+      const otherQuestions = (questionsData.questions as QuestionCard[]).filter(
+        (q) => q.subjectId === subject.id && q.level === level
+      );
+      if (otherQuestions.length > 0) pool = otherQuestions;
+    }
+
+    // Filter out already used questions in this game session if possible
+    const unused = pool.filter((q) => !usedQuestionCodes.includes(q.code || q.id));
+    const candidates = unused.length > 0 ? unused : pool;
+    const randomQ = candidates[Math.floor(Math.random() * candidates.length)];
+    if (randomQ?.code) {
+      setUsedQuestionCodes((prev) => [...prev, randomQ.code!]);
+    }
+    setActiveQuestion(randomQ);
+  };
+
+  const loadTantanganIstimewaQuestion = () => {
+    let pool = CURRICULUM_QUESTIONS.filter((q) => q.code?.includes('TI'));
+    if (materiFilter && materiFilter !== 'all') {
+      const filtered = pool.filter((q) => q.materiCode === materiFilter);
+      if (filtered.length > 0) pool = filtered;
+    }
+    const unused = pool.filter((q) => !usedQuestionCodes.includes(q.code || q.id));
+    const candidates = unused.length > 0 ? unused : pool;
+    const randomQ = candidates[Math.floor(Math.random() * candidates.length)];
+    if (randomQ?.code) {
+      setUsedQuestionCodes((prev) => [...prev, randomQ.code!]);
+    }
     setActiveQuestion(randomQ);
   };
 
   const handleSwitchLevel = (newLevel: QuestionLevel) => {
     audio.playClick();
     setSelectedQuestionLevel(newLevel);
-    loadQuestion(newLevel);
+    loadQuestionByLevel(newLevel);
     setSelectedOption('');
     setShortAnswerInput('');
     setAnswerSubmitted(false);
+    setTeacherApproved(false);
   };
 
   // Read Aloud question
@@ -294,18 +325,30 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
     speech.speak(text, () => setIsReadingAloud(false));
   };
 
-  // Check Answer
+  // Check Answer - Automatic keyword & concept check
   const handleSubmitAnswer = () => {
     if (!activeQuestion) return;
 
+    const typed = shortAnswerInput.trim();
+    if (!typed) return;
+
+    const lowerTyped = typed.toLowerCase();
     let correct = false;
-    if (activeQuestion.type === 'choice') {
-      correct = selectedOption.trim().toLowerCase() === activeQuestion.correctAnswer.trim().toLowerCase();
-    } else if (activeQuestion.type === 'short') {
-      correct = shortAnswerInput.trim().toLowerCase().includes(activeQuestion.correctAnswer.trim().toLowerCase());
-    } else if (activeQuestion.type === 'oral') {
-      // Self-check oral discussion
-      correct = true;
+
+    if (activeQuestion.expectedKeywords && activeQuestion.expectedKeywords.length > 0) {
+      const matchedKeywords = activeQuestion.expectedKeywords.filter((kw) =>
+        lowerTyped.includes(kw.toLowerCase())
+      );
+      if (activeQuestion.formType === 'Jawaban singkat' || activeQuestion.type === 'short') {
+        correct =
+          matchedKeywords.length >= 1 ||
+          lowerTyped.includes(activeQuestion.correctAnswer.toLowerCase().trim());
+      } else {
+        // Essay / Uraian / Matching: at least 1 keyword match or thoughtful written response
+        correct = matchedKeywords.length >= 1 || typed.length >= 15;
+      }
+    } else {
+      correct = lowerTyped.includes(activeQuestion.correctAnswer.toLowerCase().trim());
     }
 
     setIsAnswerCorrect(correct);
@@ -318,8 +361,9 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
         spread: 50,
         origin: { y: 0.7 },
       });
-      // Award points (Low 1, Mid 2, High 3)
-      const pointsToAdd = activeQuestion.points || (selectedQuestionLevel === 'high' ? 3 : selectedQuestionLevel === 'middle' ? 2 : 1);
+      const pointsToAdd =
+        activeQuestion.points ||
+        (selectedQuestionLevel === 'high' ? 3 : selectedQuestionLevel === 'middle' ? 2 : 1);
       setPlayers((prev) =>
         prev.map((p, idx) =>
           idx === currentPlayerIndex
@@ -331,6 +375,29 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
       audio.playWrong();
       // NO PENALTY! Pawn never moves backward as instructed!
     }
+  };
+
+  // Friendly Teacher / Peer manual approval for varied phrasing
+  const handleTeacherApproveAnswer = () => {
+    if (!activeQuestion || isAnswerCorrect) return;
+    audio.playCorrect();
+    setIsAnswerCorrect(true);
+    setTeacherApproved(true);
+    confetti({
+      particleCount: 45,
+      spread: 50,
+      origin: { y: 0.7 },
+    });
+    const pointsToAdd =
+      activeQuestion.points ||
+      (selectedQuestionLevel === 'high' ? 3 : selectedQuestionLevel === 'middle' ? 2 : 1);
+    setPlayers((prev) =>
+      prev.map((p, idx) =>
+        idx === currentPlayerIndex
+          ? { ...p, score: p.score + pointsToAdd, correctAnswersCount: p.correctAnswersCount + 1 }
+          : p
+      )
+    );
   };
 
   // Submit Challenge (+2 points)
@@ -699,137 +766,174 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
               </button>
             </div>
 
-            {/* A. QUESTION CARD */}
+            {/* A. CURRICULUM QUESTION & TANTANGAN ISTIMEWA CARD (All Typed Answers) */}
             {activeQuestion && (
               <div>
-                {/* Level Switcher (Child may switch level before answering!) */}
-                <div className="flex items-center justify-between mb-3 bg-amber-100/80 dark:bg-[#4a3b26] p-1.5 rounded-2xl border border-amber-300/80 dark:border-amber-700/80">
-                  <span className="text-[11px] font-bold text-amber-800 dark:text-amber-200 pl-2">
-                    Tingkat Soal:
-                  </span>
-                  <div className="flex gap-1">
-                    {[
-                      { id: 'low' as QuestionLevel, label: 'Dasar (1 Poin)', color: 'bg-emerald-500' },
-                      { id: 'middle' as QuestionLevel, label: 'Sedang (2 Poin)', color: 'bg-amber-500' },
-                      { id: 'high' as QuestionLevel, label: 'Tantang (3 Poin)', color: 'bg-rose-500' },
-                    ].map((lvl) => (
-                      <button
-                        key={lvl.id}
-                        disabled={answerSubmitted}
-                        onClick={() => handleSwitchLevel(lvl.id)}
-                        className={`px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-heading font-black transition-all ${
-                          selectedQuestionLevel === lvl.id
-                            ? `${lvl.color} text-white shadow-xs`
-                            : 'text-amber-800 dark:text-amber-200 hover:text-amber-950'
-                        }`}
-                      >
-                        {lvl.label}
-                      </button>
-                    ))}
+                {/* Level Switcher (Only on question tiles low, middle, high) */}
+                {(activeCardType === 'low' || activeCardType === 'middle' || activeCardType === 'high') && (
+                  <div className="flex items-center justify-between mb-3 bg-amber-100/80 dark:bg-[#4a3b26] p-1.5 rounded-2xl border border-amber-300/80 dark:border-amber-700/80">
+                    <span className="text-[11px] font-bold text-amber-800 dark:text-amber-200 pl-2">
+                      Tingkat Soal:
+                    </span>
+                    <div className="flex gap-1">
+                      {[
+                        { id: 'low' as QuestionLevel, label: 'Mudah (1 Poin)', color: 'bg-emerald-500' },
+                        { id: 'middle' as QuestionLevel, label: 'Sedang (2 Poin)', color: 'bg-amber-500' },
+                        { id: 'high' as QuestionLevel, label: 'Sulit (3 Poin)', color: 'bg-rose-500' },
+                      ].map((lvl) => (
+                        <button
+                          key={lvl.id}
+                          disabled={answerSubmitted}
+                          onClick={() => handleSwitchLevel(lvl.id)}
+                          className={`px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-heading font-black transition-all ${
+                            selectedQuestionLevel === lvl.id
+                              ? `${lvl.color} text-white shadow-xs`
+                              : 'text-amber-800 dark:text-amber-200 hover:text-amber-950'
+                          }`}
+                        >
+                          {lvl.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+                )}
+
+                {/* Question Info Header Badges: Kode Soal, Materi, Indikator, Bentuk Soal */}
+                <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+                  {activeQuestion.code && (
+                    <span className="px-2.5 py-1 rounded-xl bg-amber-500 text-white font-mono font-black text-xs shadow-xs tracking-wider">
+                      Kode: {activeQuestion.code}
+                    </span>
+                  )}
+                  {activeQuestion.materiName && (
+                    <span className="px-2.5 py-1 rounded-xl bg-orange-100 dark:bg-orange-950/80 text-orange-900 dark:text-orange-200 font-bold text-[11px] border border-orange-300 dark:border-orange-700">
+                      Materi {activeQuestion.materiCode ? `${activeQuestion.materiCode}: ` : ''}{activeQuestion.materiName}
+                    </span>
+                  )}
+                  {activeQuestion.indicator && (
+                    <span className="px-2 py-0.5 rounded-lg bg-amber-200/80 dark:bg-[#57442a] text-amber-900 dark:text-amber-200 font-bold text-[10px]">
+                      Indikator: {activeQuestion.indicator}
+                    </span>
+                  )}
+                  {activeQuestion.formType && (
+                    <span className="px-2 py-0.5 rounded-lg bg-teal-100 dark:bg-teal-950/80 text-teal-900 dark:text-teal-200 font-bold text-[10px] border border-teal-300 dark:border-teal-700">
+                      Bentuk: {activeQuestion.formType}
+                    </span>
+                  )}
+                  <span className="ml-auto px-2.5 py-1 rounded-xl bg-emerald-500 text-white font-black text-xs shadow-xs">
+                    +{activeQuestion.points} Poin
+                  </span>
                 </div>
 
                 {/* Question Text */}
-                <div className="bg-white/95 dark:bg-[#4d3c26] p-4 rounded-2xl border-2 border-amber-300 dark:border-amber-600 mb-4 shadow-sm">
-                  <span className="text-[10px] font-black uppercase text-amber-700 dark:text-amber-300 block mb-1">
-                    🌾 {subject.name} • Soal {activeQuestion.type === 'oral' ? 'Diskusi Lisan' : activeQuestion.type === 'short' ? 'Isian Singkat' : 'Pilihan Ganda'}
-                  </span>
+                <div className="bg-white/95 dark:bg-[#4d3c26] p-4 sm:p-5 rounded-2xl border-2 border-amber-300 dark:border-amber-600 mb-4 shadow-sm">
                   <p className="font-heading font-black text-base sm:text-lg text-amber-950 dark:text-amber-100 leading-snug">
                     {activeQuestion.question}
                   </p>
                 </div>
 
-                {/* Answer Inputs */}
+                {/* Answer Inputs (Must Be Typed - No Oral Answers!) */}
                 {!answerSubmitted ? (
                   <div>
-                    {/* Multiple Choice */}
-                    {activeQuestion.type === 'choice' && activeQuestion.options && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
-                        {activeQuestion.options.map((opt, i) => (
-                          <button
-                            key={i}
-                            onClick={() => {
-                              audio.playClick();
-                              setSelectedOption(opt);
-                            }}
-                            className={`p-3 rounded-2xl border-2 font-bold text-xs sm:text-sm text-left transition-all cursor-pointer ${
-                              selectedOption === opt
-                                ? 'bg-amber-400 border-amber-600 text-amber-950 shadow-[0_3px_0_#d97706] scale-[1.02]'
-                                : 'bg-white/95 dark:bg-[#524129] border-amber-200 dark:border-amber-700/80 hover:border-amber-400 text-amber-950 dark:text-amber-100 shadow-xs'
-                            }`}
-                          >
-                            <span className="mr-2 font-black text-amber-800 dark:text-amber-300">
-                              {String.fromCharCode(65 + i)}.
-                            </span>
-                            <span>{opt}</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                    <label className="block text-xs font-black text-amber-900 dark:text-amber-200 mb-1.5 flex items-center justify-between">
+                      <span className="flex items-center gap-1">
+                        <span>✏️</span>
+                        <span>Ketik Jawabanmu di Bawah:</span>
+                      </span>
+                      <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400">
+                        {shortAnswerInput.trim().length} karakter
+                      </span>
+                    </label>
 
-                    {/* Short Answer */}
-                    {activeQuestion.type === 'short' && (
-                      <div className="mb-4">
-                        <input
-                          type="text"
-                          value={shortAnswerInput}
-                          onChange={(e) => setShortAnswerInput(e.target.value)}
-                          placeholder="Ketik jawabanmu di sini..."
-                          className="w-full p-3.5 rounded-2xl border-2 border-amber-300 dark:border-amber-600 bg-white dark:bg-[#524129] font-black text-sm text-amber-950 dark:text-amber-100 placeholder-amber-400 focus:border-amber-500 focus:outline-none shadow-inner"
-                        />
-                      </div>
-                    )}
-
-                    {/* Oral / Group Self-Check */}
-                    {activeQuestion.type === 'oral' && (
-                      <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700 text-xs sm:text-sm text-emerald-950 dark:text-emerald-200 mb-4 font-bold">
-                        💡 <strong>Ayo Berdiskusi:</strong> Sampaikan jawabanmu secara lisan kepada teman di sebelahmu. Jika temanmu setuju, ketuk tombol di bawah!
-                      </div>
+                    {activeQuestion.formType === 'Jawaban singkat' || activeQuestion.type === 'short' ? (
+                      <input
+                        type="text"
+                        autoFocus
+                        value={shortAnswerInput}
+                        onChange={(e) => setShortAnswerInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && shortAnswerInput.trim()) {
+                            handleSubmitAnswer();
+                          }
+                        }}
+                        placeholder="Ketik jawaban singkatmu di sini..."
+                        className="w-full p-3.5 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-white dark:bg-[#524129] font-black text-sm text-amber-950 dark:text-amber-100 placeholder-amber-400 focus:border-amber-600 focus:ring-2 focus:ring-amber-300 focus:outline-none shadow-inner mb-4"
+                      />
+                    ) : (
+                      <textarea
+                        autoFocus
+                        rows={3}
+                        value={shortAnswerInput}
+                        onChange={(e) => setShortAnswerInput(e.target.value)}
+                        placeholder="Ketik uraian jawabanmu dengan rapi di sini..."
+                        className="w-full p-3.5 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-white dark:bg-[#524129] font-bold text-sm text-amber-950 dark:text-amber-100 placeholder-amber-400 focus:border-amber-600 focus:ring-2 focus:ring-amber-300 focus:outline-none shadow-inner mb-4 resize-none"
+                      />
                     )}
 
                     {/* Submit Button */}
                     <button
                       onClick={handleSubmitAnswer}
-                      disabled={
-                        activeQuestion.type === 'choice'
-                          ? !selectedOption
-                          : activeQuestion.type === 'short'
-                          ? !shortAnswerInput.trim()
-                          : false
-                      }
-                      className="btn-chunky w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:opacity-40 text-white font-heading font-black text-base shadow-[0_5px_0_#b45309] border border-amber-300 cursor-pointer"
+                      disabled={!shortAnswerInput.trim()}
+                      className="btn-chunky w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:opacity-40 text-white font-heading font-black text-base shadow-[0_5px_0_#b45309] border border-amber-300 cursor-pointer transition-all"
                     >
-                      Kirim Jawaban!
+                      Kirim Jawaban! 🚀
                     </button>
                   </div>
                 ) : (
-                  /* Answer Feedback (Friendly, no punishment, no backward move) */
+                  /* Answer Feedback */
                   <div className="text-center">
                     {isAnswerCorrect ? (
                       <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border-2 border-emerald-400 text-emerald-900 dark:text-emerald-200 mb-4 animate-bounce">
                         <span className="text-3xl">🎉</span>
                         <h4 className="font-heading font-black text-lg text-emerald-700 dark:text-emerald-300 mt-1">
-                          Hebat Sekali! Jawaban Benar!
+                          Hebat Sekali! Jawaban Tepat!
                         </h4>
                         <p className="text-xs sm:text-sm font-bold mt-1">
                           +{activeQuestion.points} Poin berhasil didapatkan!
                         </p>
                       </div>
                     ) : (
-                      <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border-2 border-amber-400 text-amber-900 dark:text-amber-200 mb-4 animate-wobble">
+                      <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border-2 border-amber-400 text-amber-900 dark:text-amber-200 mb-3 animate-wobble">
                         <span className="text-3xl">🤗</span>
                         <h4 className="font-heading font-black text-lg text-amber-700 dark:text-amber-300 mt-1">
-                          Coba lagi ya! Tetap Semangat!
+                          Usaha yang Bagus! Tetap Semangat!
                         </h4>
                         <p className="text-xs sm:text-sm font-medium mt-1">
-                          Jawaban yang tepat adalah: <strong>{activeQuestion.correctAnswer}</strong>.
+                          Ayo pelajari kunci jawaban panduan di bawah untuk menambah pemahamanmu.
                         </p>
+                        {/* Friendly Teacher / Peer Override Button */}
+                        {!teacherApproved && (
+                          <button
+                            type="button"
+                            onClick={handleTeacherApproveAnswer}
+                            className="btn-chunky mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black shadow-xs cursor-pointer border border-emerald-300"
+                          >
+                            <span>✅ Disetujui Guru / Teman (+{activeQuestion.points} Poin)</span>
+                          </button>
+                        )}
                       </div>
                     )}
 
+                    {/* What user typed */}
+                    <div className="p-3 rounded-xl bg-amber-100/70 dark:bg-[#433420] text-xs text-amber-950 dark:text-amber-100 text-left mb-2.5 border border-amber-200 dark:border-amber-700">
+                      <span className="font-black text-amber-800 dark:text-amber-300 block mb-0.5">
+                        ✍️ Jawaban yang Kamu Ketik:
+                      </span>
+                      <p className="italic font-bold">"{shortAnswerInput}"</p>
+                    </div>
+
+                    {/* Official Model Answer (Kunci Jawaban) */}
+                    <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-xs text-emerald-950 dark:text-emerald-100 text-left mb-2.5 border border-emerald-300 dark:border-emerald-700">
+                      <span className="font-black text-emerald-800 dark:text-emerald-300 block mb-0.5">
+                        📖 Kunci Jawaban Panduan:
+                      </span>
+                      <p className="font-bold">{activeQuestion.correctAnswer}</p>
+                    </div>
+
                     {/* Friendly Explanation */}
-                    <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-[#4d3c26] text-xs sm:text-sm text-amber-950 dark:text-amber-100 text-left mb-4 border border-amber-200 dark:border-amber-600">
-                      <strong>Penjelasan:</strong> {activeQuestion.explanation}
+                    <div className="p-3 rounded-xl bg-white/90 dark:bg-[#4d3c26] text-xs text-amber-950 dark:text-amber-100 text-left mb-4 border border-amber-200 dark:border-amber-600">
+                      <strong className="text-amber-900 dark:text-amber-300 block mb-0.5">💡 Penjelasan Materi:</strong>
+                      <p>{activeQuestion.explanation}</p>
                     </div>
 
                     <button
@@ -840,104 +944,6 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
                     </button>
                   </div>
                 )}
-              </div>
-            )}
-
-            {/* B. CHALLENGE CARD (Tantangan Ilmu / Seru) */}
-            {activeChallenge && (
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-pink-400 to-rose-400 text-white text-3xl flex items-center justify-center mb-3 shadow-md">
-                  {activeChallenge.type === 'science' ? '💡' : '🎵'}
-                </div>
-                <span className="text-xs font-black uppercase text-pink-700 dark:text-pink-300">
-                  {activeChallenge.type === 'science' ? 'Kartu Tantangan Ilmu' : 'Kartu Tantangan Seru'}
-                </span>
-                <h3 className="font-heading font-black text-xl text-amber-950 dark:text-amber-100 mt-1 mb-3">
-                  {activeChallenge.title}
-                </h3>
-                <div className="bg-white/95 dark:bg-[#4d3c26] p-4 rounded-2xl border-2 border-pink-300 dark:border-pink-600 text-sm sm:text-base font-bold text-amber-950 dark:text-amber-100 mb-4">
-                  {activeChallenge.task}
-                </div>
-                <p className="text-xs text-amber-800 dark:text-amber-300 mb-5 italic font-bold">
-                  Petunjuk: {activeChallenge.instruction}
-                </p>
-                <button
-                  onClick={handleCompleteChallenge}
-                  className="btn-chunky w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-heading font-black text-base shadow-[0_5px_0_#be185d] border border-pink-300 cursor-pointer"
-                >
-                  Tantangan Selesai! (+2 Poin) 🎉
-                </button>
-              </div>
-            )}
-
-            {/* C. STORY CARD (Cerita Pengalaman: Reflective prompt) */}
-            {activeStory && (
-              <div>
-                <div className="text-center mb-3">
-                  <span className="text-3xl">🗺️</span>
-                  <h3 className="font-heading font-black text-lg sm:text-xl text-amber-950 dark:text-amber-100 mt-1">
-                    {activeStory.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-amber-850 dark:text-amber-200 font-bold mt-1">
-                    {activeStory.prompt}
-                  </p>
-                </div>
-
-                <div className="bg-white/95 dark:bg-[#4d3c26] p-4 rounded-2xl border-2 border-teal-300 dark:border-teal-600 mb-3 shadow-xs">
-                  <p className="text-xs sm:text-sm text-amber-950 dark:text-amber-100 font-bold">
-                    Ceritakan pengalaman serumu kepada teman-teman regumu secara lisan, tulis, atau peragakan!
-                  </p>
-                </div>
-
-                {/* Mode Choice: "Aku bicara / Aku tulis / Aku peragakan" */}
-                <div className="mb-3">
-                  <label className="block text-[11px] font-black text-amber-900 dark:text-amber-200 mb-1">
-                    Pilih Cara Berbagi Ceritamu:
-                  </label>
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {[
-                      { id: 'bicara', label: '🗣️ Aku Bicara' },
-                      { id: 'tulis', label: '✍️ Aku Tulis' },
-                      { id: 'peragakan', label: '🎭 Aku Peragakan' },
-                    ].map((mode) => (
-                      <button
-                        key={mode.id}
-                        onClick={() => {
-                          audio.playClick();
-                          setStoryAnswerMode(mode.id as any);
-                        }}
-                        className={`py-2 px-1 rounded-xl text-xs font-heading font-black border transition-all cursor-pointer ${
-                          storyAnswerMode === mode.id
-                            ? 'bg-teal-500 text-white border-teal-600 shadow-xs scale-102'
-                            : 'bg-white/90 dark:bg-[#524129] text-amber-950 dark:text-amber-200 border-amber-200 dark:border-amber-700'
-                        }`}
-                      >
-                        {mode.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {storyAnswerMode === 'tulis' && (
-                  <textarea
-                    rows={2}
-                    value={storyTextInput}
-                    onChange={(e) => setStoryTextInput(e.target.value)}
-                    placeholder="Tuliskan ceritamu di sini..."
-                    className="w-full p-2.5 rounded-xl border-2 border-teal-300 dark:border-teal-600 bg-white dark:bg-[#524129] text-xs font-bold mb-3 focus:outline-none text-amber-950 dark:text-amber-100 placeholder-teal-600"
-                  />
-                )}
-
-                <p className="text-[11px] text-teal-800 dark:text-teal-300 font-bold italic mb-4 text-center">
-                  💡 Tidak ada jawaban salah dalam berbagi cerita!
-                </p>
-
-                <button
-                  onClick={handleCompleteStory}
-                  className="btn-chunky w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-heading font-black text-base shadow-[0_5px_0_#0f766e] border border-teal-300 cursor-pointer"
-                >
-                  Bagikan Cerita (+1 Poin) ✨
-                </button>
               </div>
             )}
 

@@ -35,16 +35,22 @@ export interface Topic {
 
 export type QuestionLevel = 'low' | 'middle' | 'high';
 
-export type QuestionType = 'choice' | 'short' | 'oral';
+export type QuestionType = 'choice' | 'short' | 'oral' | 'essay' | 'matching';
 
 export interface QuestionCard {
   id: string;
+  code?: string;
+  materiCode?: string;
+  materiName?: string;
   subjectId: SubjectId;
   level: QuestionLevel;
   type: QuestionType;
+  formType?: string;
+  indicator?: string;
   question: string;
   options?: string[];
   correctAnswer: string;
+  expectedKeywords?: string[];
   explanation: string;
   points: number;
 }

@@ -169,41 +169,78 @@
     }
   },
   {
-    "id": "pan-1",
-    "title": "Makna Simbol Sila-Sila Pancasila",
+    "id": "pan-a",
+    "title": "Materi A: Identitas Masyarakat",
     "semester": "ganjil",
     "subjectId": "pancasila",
-    "icon": "⭐",
-    "summary": "Memahami nilai bintang emas, rantai, pohon beringin, kepala banteng, serta padi dan kapas.",
+    "icon": "🇮🇩",
+    "summary": "Mengenal jati diri bangsa, bahasa daerah, pakaian adat, kesenian daerah, dan alat musik tradisional nusantara.",
     "reading": {
-      "summary": "Pancasila adalah dasar negara Republik Indonesia. Garuda Pancasila memiliki perisai di dadanya yang memuat lambang kelima sila.",
+      "summary": "Identitas masyarakat adalah ciri khas atau jati diri yang membedakan satu kelompok masyarakat dengan kelompok lainnya. Ciri khas ini diwariskan turun-temurun sebagai kekayaan budaya bangsa Indonesia.",
       "keyPoints": [
-        "Sila ke-1 (Bintang Emas): Ketuhanan Yang Maha Esa - saling menghargai agama teman.",
-        "Sila ke-2 (Rantai Emas): Kemanusiaan yang Adil dan Beradab - tolong-menolong tanpa membeda-bedakan.",
-        "Sila ke-3 (Pohon Beringin): Persatuan Indonesia - rukun meski berbeda suku dan bahasa.",
-        "Sila ke-4 (Kepala Banteng): Musyawarah untuk mencapai mufakat saat mengambil keputusan bersama.",
-        "Sila ke-5 (Padi dan Kapas): Keadilan Sosial - hidup hemat dan peduli sesama."
+        "Unsur Identitas: Bahasa daerah, pakaian adat, kesenian daerah (seperti Reog Ponorogo), tarian tradisional, rumah adat, dan makanan khas.",
+        "Alat Musik Tradisional: Tifa dari Papua dan Maluku, Angklung dari Jawa Barat, Gamelan dari Jawa dan Bali.",
+        "Suku Bangsa: Indonesia terdiri dari ratusan suku bangsa yang hidup berdampingan secara damai dan setara."
       ],
-      "funFact": "Jumlah bulu pada Garuda Pancasila melambangkan hari kemerdekaan Indonesia: 17 helai sayap, 8 helai ekor, 19 helai pangkal ekor, dan 45 helai leher!",
-      "exampleStory": "Saat menentukan ketua regu kebersihan, kelas Maria mengadakan musyawarah kelas sesuai pengamalan sila ke-4."
+      "funFact": "Indonesia memiliki lebih dari 718 bahasa daerah yang tersebar dari Sabang sampai Merauke!",
+      "exampleStory": "Di kelas 4, Maria dari suku Dani memperkenalkan alat musik Tifa kepada teman-temannya. Andi yang berasal dari Bugis menceritakan pakaian Baju Bodo miliknya. Semuanya bangga memperkenalkan budayanya!"
     }
   },
   {
-    "id": "pan-2",
-    "title": "Hak dan Kewajiban Anak di Sekolah",
-    "semester": "genap",
+    "id": "pan-b",
+    "title": "Materi B: Menghargai Perbedaan Identitas",
+    "semester": "ganjil",
     "subjectId": "pancasila",
     "icon": "🤝",
-    "summary": "Keseimbangan antara hak mendapatkan ilmu dan kewajiban menaati tata tertib.",
+    "summary": "Menumbuhkan sikap toleransi, kerukunan, tidak mengejek perbedaan logat dan budaya, serta musyawarah mufakat.",
     "reading": {
-      "summary": "Hak adalah sesuatu yang berhak kita terima, sedangkan kewajiban adalah sesuatu yang wajib kita lakukan dengan penuh tanggung jawab.",
+      "summary": "Semboyan 'Bhinneka Tunggal Ika' mengajarkan kita bahwa meskipun kita memiliki perbedaan suku, bahasa, agama, dan kebiasaan, kita tetap satu bangsa yang bersatu dan saling menyayangi.",
       "keyPoints": [
-        "Kewajiban harus didahulukan sebelum menuntut hak.",
-        "Kewajiban siswa: Memperhatikan guru mengajar, menjaga kebersihan kelas, datang tepat waktu.",
-        "Hak siswa: Mendapat bimbingan guru, meminjam buku di perpustakaan, merasa aman dan nyaman saat belajar."
+        "Sikap Toleransi: Menghormati teman yang sedang menjalankan ibadah dengan menjaga ketenangan.",
+        "Bahasa Persatuan: Menggunakan Bahasa Indonesia yang baik dan santun saat berinteraksi di sekolah agar semua teman saling mengerti.",
+        "Menolak Perundungan: Perbedaan budaya atau logat bukan alasan untuk mengejek, melainkan kekayaan yang harus kita apresiasi bersama.",
+        "Musyawarah Mufakat: Menyelesaikan perbedaan pendapat atau jadwal pentas seni dengan berdiskusi kepala dingin dan mufakat."
       ],
-      "funFact": "Semboyan 'Bhinneka Tunggal Ika' diambil dari Kitab Sutasoma karangan Mpu Tantular pada zaman Kerajaan Majapahit.",
-      "exampleStory": "Boris dan teman-temannya membersihkan kelas bersama sebelum bel berbunyi. Setelah kelas bersih, mereka dapat belajar dengan tenang dan gembira."
+      "funFact": "Di Bali, Pecalang (petugas keamanan adat) bergotong royong menjaga ketertiban salat Idul Adha umat Muslim, mencerminkan tingginya kerukunan hidup beragama!",
+      "exampleStory": "Saat jam istirahat, Ajeng membawa bekal makanan khas daerahnya. Boris penasaran dan bertanya dengan sopan. Ajeng senang membaginya dan mereka makan bersama dengan gembira."
+    }
+  },
+  {
+    "id": "pan-c",
+    "title": "Materi C: Perangkat Desa dan Kelurahan",
+    "semester": "genap",
+    "subjectId": "pancasila",
+    "icon": "🏛️",
+    "summary": "Struktur pemerintahan desa dan kelurahan: Kepala Desa, Lurah, Sekretaris, BPD, dan Kepala Dusun.",
+    "reading": {
+      "summary": "Pemerintahan desa dan kelurahan bertugas melayani kebutuhan administrasi, menjaga ketertiban, dan menyalurkan pembangunan bagi kesejahteraan warga di wilayahnya.",
+      "keyPoints": [
+        "Kepala Desa vs Lurah: Kepala desa dipilih langsung oleh warga melalui Pilkades, sedangkan Lurah adalah PNS/ASN yang diangkat oleh bupati atau wali kota.",
+        "Badan Permusyawaratan Desa (BPD): Lembaga desa yang menampung dan menyalurkan aspirasi warga serta membahas peraturan desa bersama kepala desa.",
+        "Sekretaris Desa/Kelurahan: Memimpin tata usaha administrasi, surat-menyurat resmi, pengarsipan, dan tata kelola perencanaan.",
+        "Kepala Dusun (Kadus): Membantu kepala desa dalam pelaksanaan tugas kewilayahan di tiap dusun atau kampung."
+      ],
+      "funFact": "Kantor desa tertua yang masih berfungsi di beberapa daerah di nusantara sudah ada sejak ratusan tahun lalu sebagai pusat musyawarah warga!",
+      "exampleStory": "Pak RT mendampingi warga yang ingin mengusulkan perbaikan lampu jalan desa ke kantor BPD agar dapat dibahas dalam musyawarah rencana pembangunan desa bersama Kepala Desa."
+    }
+  },
+  {
+    "id": "pan-d",
+    "title": "Materi D: Menjelajah Lingkungan Tempat Tinggal",
+    "semester": "genap",
+    "subjectId": "pancasila",
+    "icon": "🗺️",
+    "summary": "Membedakan lingkungan alam dan buatan, fasilitas umum, puskesmas, serta teknik pengamatan dan wawancara narasumber.",
+    "reading": {
+      "summary": "Lingkungan sekitar tempat tinggal kita terdiri dari bentang alam alami ciptaan Tuhan dan lingkungan buatan yang didirikan oleh manusia untuk memenuhi kebutuhan hidup sehari-hari.",
+      "keyPoints": [
+        "Lingkungan Alam: Bentang alam alami seperti sungai, gunung, danau, laut, bukit, dan hutan lindung.",
+        "Lingkungan Buatan: Bangunan fasilitas umum seperti sekolah, puskesmas, pasar, jalan raya, jembatan, dan taman bermain.",
+        "Puskesmas: Pusat Kesehatan Masyarakat yang menyediakan layanan berobat, imunisasi anak, dan penyuluhan pola hidup sehat.",
+        "Teknik Menjelajah: Mengamati sarana umum, mewawancarai narasumber (Ketua RT, RW, tokoh masyarakat), mencatat dengan rapi, dan menjaga kebersihan lingkungan."
+      ],
+      "funFact": "Ruang Terbuka Hijau (RTH) di desa dan kota berfungsi sebagai paru-paru lingkungan yang menyerap polusi dan menghasilkan udara segar!",
+      "exampleStory": "Lestari dan kelompoknya berjalan menyusuri jalan setapak desa, mencatat sawah (lingkungan buatan) di tepi sungai (lingkungan alam), dan berbincang dengan Pak RW untuk mengetahui sejarah desanya."
     }
   },
   {
