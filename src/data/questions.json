@@ -1,0 +1,472 @@
+{
+  "questions": [
+    {
+      "id": "q-mat-l1",
+      "subjectId": "matematika",
+      "level": "low",
+      "type": "choice",
+      "question": "Pada bilangan 4.825, angka yang menempati nilai tempat ratusan adalah...",
+      "options": ["4", "8", "2", "5"],
+      "correctAnswer": "8",
+      "explanation": "Pada 4.825: 4 = ribuan, 8 = ratusan, 2 = puluhan, 5 = satuan.",
+      "points": 1
+    },
+    {
+      "id": "q-mat-l2",
+      "subjectId": "matematika",
+      "level": "low",
+      "type": "choice",
+      "question": "Berapakah hasil dari 250 + 150?",
+      "options": ["300", "350", "400", "450"],
+      "correctAnswer": "400",
+      "explanation": "250 ditambah 150 sama dengan 400.",
+      "points": 1
+    },
+    {
+      "id": "q-mat-m1",
+      "subjectId": "matematika",
+      "level": "middle",
+      "type": "choice",
+      "question": "Pecahan yang senilai dengan 2/4 adalah...",
+      "options": ["1/2", "3/5", "2/6", "4/10"],
+      "correctAnswer": "1/2",
+      "explanation": "2/4 disederhanakan dengan membagi pembilang dan penyebut dengan 2 menjadi 1/2.",
+      "points": 2
+    },
+    {
+      "id": "q-mat-m2",
+      "subjectId": "matematika",
+      "level": "middle",
+      "type": "short",
+      "question": "Sebuah persegi memiliki sisi 6 cm. Berapakah keliling persegi tersebut dalam cm? (Tuliskan angkanya saja)",
+      "correctAnswer": "24",
+      "explanation": "Keliling persegi = 4 x sisi = 4 x 6 = 24 cm.",
+      "points": 2
+    },
+    {
+      "id": "q-mat-h1",
+      "subjectId": "matematika",
+      "level": "high",
+      "type": "choice",
+      "question": "Pak Joko memiliki kebun berbentuk persegi panjang dengan panjang 12 meter dan lebar 8 meter. Berapakah luas kebun Pak Joko?",
+      "options": ["40 m²", "84 m²", "96 m²", "100 m²"],
+      "correctAnswer": "96 m²",
+      "explanation": "Luas persegi panjang = panjang x lebar = 12 x 8 = 96 meter persegi.",
+      "points": 3
+    },
+    {
+      "id": "q-mat-h2",
+      "subjectId": "matematika",
+      "level": "high",
+      "type": "oral",
+      "question": "Jelaskan kepada teman di sebelahmu: Mengapa pecahan 1/3 lebih besar daripada 1/6 jika dibayangkan dengan kue ulang tahun?",
+      "correctAnswer": "Kue yang dipotong menjadi 3 bagian akan menghasilkan potongan yang lebih besar dibanding jika dipotong menjadi 6 bagian.",
+      "explanation": "Semakin sedikit orang yang membagi (penyebut lebih kecil), semakin besar bagian masing-masing!",
+      "points": 3
+    },
+    {
+      "id": "q-ipas-l1",
+      "subjectId": "ipas",
+      "level": "low",
+      "type": "choice",
+      "question": "Bagian tumbuhan yang bertugas menyerap air dan unsur hara dari dalam tanah adalah...",
+      "options": ["Daun", "Akar", "Bunga", "Buah"],
+      "correctAnswer": "Akar",
+      "explanation": "Akar berada di dalam tanah dan bertugas menyerap air serta mineral.",
+      "points": 1
+    },
+    {
+      "id": "q-ipas-l2",
+      "subjectId": "ipas",
+      "level": "low",
+      "type": "choice",
+      "question": "Perubahan wujud zat dari cair menjadi padat dinamakan...",
+      "options": ["Mencair", "Menguap", "Membeku", "Menyublim"],
+      "correctAnswer": "Membeku",
+      "explanation": "Contoh membeku adalah air yang dimasukkan ke freezer menjadi es batu.",
+      "points": 1
+    },
+    {
+      "id": "q-ipas-m1",
+      "subjectId": "ipas",
+      "level": "middle",
+      "type": "choice",
+      "question": "Gas yang dihasilkan oleh tumbuhan saat fotosintesis dan sangat dibutuhkan manusia untuk bernapas adalah...",
+      "options": ["Karbon dioksida", "Oksigen", "Nitrogen", "Helium"],
+      "correctAnswer": "Oksigen",
+      "explanation": "Fotosintesis menghasilkan glukosa (makanan tumbuhan) dan oksigen (O2).",
+      "points": 2
+    },
+    {
+      "id": "q-ipas-m2",
+      "subjectId": "ipas",
+      "level": "middle",
+      "type": "short",
+      "question": "Gaya apa yang menyebabkan buah mangga yang matang selalu jatuh ke bawah menuju tanah? (Tulis satu kata)",
+      "correctAnswer": "gravitasi",
+      "explanation": "Gaya gravitasi bumi menarik semua benda menuju pusat bumi.",
+      "points": 2
+    },
+    {
+      "id": "q-ipas-h1",
+      "subjectId": "ipas",
+      "level": "high",
+      "type": "choice",
+      "question": "Mengapa permukaan ban sepeda dan sol sepatu dibuat memiliki alur gerigi yang kasar?",
+      "options": [
+        "Agar terlihat indah dan modern",
+        "Untuk memperbesar gaya gesek agar tidak mudah tergelincir",
+        "Untuk memperkecil gaya gravitasi bumi",
+        "Agar ban lebih cepat berputar"
+      ],
+      "correctAnswer": "Untuk memperbesar gaya gesek agar tidak mudah tergelincir",
+      "explanation": "Alur kasar menambah cengkeraman (gaya gesek) antara ban/sepatu dengan aspal jalanan.",
+      "points": 3
+    },
+    {
+      "id": "q-ipas-h2",
+      "subjectId": "ipas",
+      "level": "high",
+      "type": "oral",
+      "question": "Sebutkan 3 benda di sekitarmu yang memanfaatkan energi listrik lalu mengubahnya menjadi energi gerak!",
+      "correctAnswer": "Kipas angin, blender, mesin cuci, mixer, atau mobil mainan remote control.",
+      "explanation": "Semua alat tersebut mengubah energi listrik menjadi energi kinetik/gerak.",
+      "points": 3
+    },
+    {
+      "id": "q-indo-l1",
+      "subjectId": "bahasa-indonesia",
+      "level": "low",
+      "type": "choice",
+      "question": "Gagasan utama atau hal pokok yang dibicarakan dalam suatu paragraf disebut...",
+      "options": ["Kalimat penutup", "Ide pokok", "Kata tanya", "Tanda baca"],
+      "correctAnswer": "Ide pokok",
+      "explanation": "Ide pokok adalah inti atau sari pembahasan dalam satu paragraf.",
+      "points": 1
+    },
+    {
+      "id": "q-indo-l2",
+      "subjectId": "bahasa-indonesia",
+      "level": "low",
+      "type": "choice",
+      "question": "Lawan kata (antonim) dari kata 'Rajin' adalah...",
+      "options": ["Pintar", "Malas", "Cepat", "Bosan"],
+      "correctAnswer": "Malas",
+      "explanation": "Rajin berlawanan arti dengan malas.",
+      "points": 1
+    },
+    {
+      "id": "q-indo-m1",
+      "subjectId": "bahasa-indonesia",
+      "level": "middle",
+      "type": "choice",
+      "question": "Perhatikan kalimat: 'Boris menyiram bunga di teras depan'. Kata 'bunga' pada kalimat tersebut berkedudukan sebagai...",
+      "options": ["Subjek (S)", "Predikat (P)", "Objek (O)", "Keterangan (K)"],
+      "correctAnswer": "Objek (O)",
+      "explanation": "Boris (S), menyiram (P), bunga (O), di teras depan (K. Tempat).",
+      "points": 2
+    },
+    {
+      "id": "q-indo-m2",
+      "subjectId": "bahasa-indonesia",
+      "level": "middle",
+      "type": "short",
+      "question": "Apa sebutan untuk kalimat aktif yang TIDAK memerlukan objek? (Tulis satu kata)",
+      "correctAnswer": "intransitif",
+      "explanation": "Kalimat intransitif adalah kalimat yang tidak memerlukan objek, contoh: 'Ajeng tertawa riang'.",
+      "points": 2
+    },
+    {
+      "id": "q-indo-h1",
+      "subjectId": "bahasa-indonesia",
+      "level": "high",
+      "type": "choice",
+      "question": "Manakah di bawah ini yang merupakan ciri-ciri teks petunjuk yang baik?",
+      "options": [
+        "Menggunakan bahasa kiasan dan berbelit-belit",
+        "Disusun secara acak tanpa nomor urut",
+        "Menggunakan kalimat perintah yang jelas, runtut, dan mudah dipahami",
+        "Hanya berisi gambar tanpa tulisan penjelasan"
+      ],
+      "correctAnswer": "Menggunakan kalimat perintah yang jelas, runtut, dan mudah dipahami",
+      "explanation": "Teks petunjuk memandu pembaca secara sistematis langkah demi langkah.",
+      "points": 3
+    },
+    {
+      "id": "q-indo-h2",
+      "subjectId": "bahasa-indonesia",
+      "level": "high",
+      "type": "oral",
+      "question": "Buatlah satu kalimat aktif transitif lengkap yang memuat Subjek, Predikat, Objek, dan Keterangan tempat!",
+      "correctAnswer": "Contoh: 'Ibu memasak rendang di dapur' atau 'Andi membaca buku cerita di perpustakaan'.",
+      "explanation": "Pastikan kalimat memiliki orang yang bertindak, kata kerja aktif, benda yang dikenai tindakan, dan tempat.",
+      "points": 3
+    },
+    {
+      "id": "q-pan-l1",
+      "subjectId": "pancasila",
+      "level": "low",
+      "type": "choice",
+      "question": "Simbol sila pertama Pancasila, 'Ketuhanan Yang Maha Esa', adalah...",
+      "options": ["Rantai Emas", "Bintang Emas", "Pohon Beringin", "Kepala Banteng"],
+      "correctAnswer": "Bintang Emas",
+      "explanation": "Bintang emas berlatar hitam melambangkan sila ke-1 Ketuhanan Yang Maha Esa.",
+      "points": 1
+    },
+    {
+      "id": "q-pan-l2",
+      "subjectId": "pancasila",
+      "level": "low",
+      "type": "choice",
+      "question": "Semboyan persatuan bangsa Indonesia yang tercengkeram di kaki Garuda Pancasila adalah...",
+      "options": ["Tut Wuri Handayani", "Bhinneka Tunggal Ika", "Pancasila Sakti", "Merdeka atau Mati"],
+      "correctAnswer": "Bhinneka Tunggal Ika",
+      "explanation": "Bhinneka Tunggal Ika berarti berbeda-beda tetapi tetap satu jua.",
+      "points": 1
+    },
+    {
+      "id": "q-pan-m1",
+      "subjectId": "pancasila",
+      "level": "middle",
+      "type": "choice",
+      "question": "Melaksanakan piket kelas bersama teman-teman dengan penuh tanggung jawab merupakan wujud dari...",
+      "options": ["Kewajiban siswa di sekolah", "Hak istimewa guru", "Hadiah dari kepala sekolah", "Pelanggaran tata tertib"],
+      "correctAnswer": "Kewajiban siswa di sekolah",
+      "explanation": "Menjaga kebersihan ruang kelas adalah kewajiban bersama seluruh siswa.",
+      "points": 2
+    },
+    {
+      "id": "q-pan-m2",
+      "subjectId": "pancasila",
+      "level": "middle",
+      "type": "short",
+      "question": "Sila ke berapa dari Pancasila yang dilambangkan dengan pohon beringin? (Tulis angkanya saja)",
+      "correctAnswer": "3",
+      "explanation": "Pohon beringin melambangkan Sila ke-3: Persatuan Indonesia.",
+      "points": 2
+    },
+    {
+      "id": "q-pan-h1",
+      "subjectId": "pancasila",
+      "level": "high",
+      "type": "choice",
+      "question": "Ketika kelompok belajar memiliki perbedaan pendapat saat memilih ketua tim, sikap terbaik sesuai pengamalan sila ke-4 adalah...",
+      "options": [
+        "Marah dan memilih keluar dari kelompok",
+        "Memaksa semua anggota harus menuruti pendapat kita",
+        "Bermusyawarah secara tertib untuk mencapai kata mufakat",
+        "Menentukan dengan cara bertengkar"
+      ],
+      "correctAnswer": "Bermusyawarah secara tertib untuk mencapai kata mufakat",
+      "explanation": "Sila ke-4 mengajarkan musyawarah mufakat dengan kepala dingin dan saling menghargai.",
+      "points": 3
+    },
+    {
+      "id": "q-pan-h2",
+      "subjectId": "pancasila",
+      "level": "high",
+      "type": "oral",
+      "question": "Berikan satu contoh nyata bagaimana kamu menghargai teman sekelasmu yang berasal dari suku atau agama yang berbeda!",
+      "correctAnswer": "Mengajak bermain bersama tanpa membeda-bedakan, tidak mengejek logat bicaranya, dan mengucapkan selamat saat temannya merayakan hari raya.",
+      "explanation": "Toleransi dan kerukunan adalah wujud nyata cinta tanah air Indonesia.",
+      "points": 3
+    },
+    {
+      "id": "q-ing-l1",
+      "subjectId": "bahasa-inggris",
+      "level": "low",
+      "type": "choice",
+      "question": "What is 'kamar tidur' in English?",
+      "options": ["Kitchen", "Living room", "Bedroom", "Bathroom"],
+      "correctAnswer": "Bedroom",
+      "explanation": "Bedroom is where we sleep (kamar tidur).",
+      "points": 1
+    },
+    {
+      "id": "q-ing-l2",
+      "subjectId": "bahasa-inggris",
+      "level": "low",
+      "type": "choice",
+      "question": "It is 07.00 in the morning. How do we say it in English?",
+      "options": ["It is seven o'clock", "It is twelve o'clock", "It is six o'clock", "It is eight o'clock"],
+      "correctAnswer": "It is seven o'clock",
+      "explanation": "07.00 is 'seven o'clock'.",
+      "points": 1
+    },
+    {
+      "id": "q-ing-m1",
+      "subjectId": "bahasa-inggris",
+      "level": "middle",
+      "type": "choice",
+      "question": "'The book is ... the table.' (Buku itu ada DI ATAS meja). The correct preposition is...",
+      "options": ["in", "on", "under", "behind"],
+      "correctAnswer": "on",
+      "explanation": "'On' means di atas permukaan benda.",
+      "points": 2
+    },
+    {
+      "id": "q-ing-m2",
+      "subjectId": "bahasa-inggris",
+      "level": "middle",
+      "type": "short",
+      "question": "What is the English word for 'dapur'? (Write the word)",
+      "correctAnswer": "kitchen",
+      "explanation": "Kitchen is the room where mother cooks meals.",
+      "points": 2
+    },
+    {
+      "id": "q-ing-h1",
+      "subjectId": "bahasa-inggris",
+      "level": "high",
+      "type": "choice",
+      "question": "Arrange these words into a good sentence: [school - goes - to - Andi - by bike]",
+      "options": [
+        "Andi goes to school by bike",
+        "To school Andi by bike goes",
+        "By bike goes school to Andi",
+        "Andi to school bike goes by"
+      ],
+      "correctAnswer": "Andi goes to school by bike",
+      "explanation": "Subject (Andi) + Verb (goes to school) + Adverb (by bike).",
+      "points": 3
+    },
+    {
+      "id": "q-ing-h2",
+      "subjectId": "bahasa-inggris",
+      "level": "high",
+      "type": "oral",
+      "question": "Tell your friends in English: What time do you usually wake up in the morning? (Example: 'I wake up at five o'clock')",
+      "correctAnswer": "Any clear answer mentioning waking time in English, e.g. 'I wake up at five/six o'clock'.",
+      "explanation": "Good job practicing your English daily routine!",
+      "points": 3
+    }
+  ],
+  "scienceChallenges": [
+    {
+      "id": "sc-1",
+      "type": "science",
+      "title": "Tantangan Detektif Daun",
+      "task": "Sebutkan nama 2 jenis bentuk tulang daun (misal: menyirip, menjari, melengkung, atau sejajar) yang pernah kamu lihat!",
+      "instruction": "Katakan dengan lantang dan berikan contoh tanamannya kepada teman sekelompokmu.",
+      "points": 2
+    },
+    {
+      "id": "sc-2",
+      "type": "science",
+      "title": "Eksperimen Udara Tak Terlihat",
+      "task": "Tunjukkan bahwa udara menempati ruang dengan cara meniup kedua pipimu hingga kembung selama 5 detik!",
+      "instruction": "Pipi mengembang membuktikan bahwa udara mengisi ruang di dalam mulutmu.",
+      "points": 2
+    },
+    {
+      "id": "sc-3",
+      "type": "science",
+      "title": "Tantangan Gaya Gesek",
+      "task": "Gosokkan kedua telapak tanganmu dengan cepat selama 7 detik. Apa yang kamu rasakan?",
+      "instruction": "Telapak tangan menjadi hangat karena gesekan dua permukaan menghasilkan energi panas!",
+      "points": 2
+    },
+    {
+      "id": "sc-4",
+      "type": "science",
+      "title": "Tantangan Bayangan Cahaya",
+      "task": "Gunakan kedua tanganmu untuk membuat bayangan bentuk burung atau kelinci di atas meja!",
+      "instruction": "Cahaya merambat lurus sehingga terhalang tangan dan membentuk bayangan.",
+      "points": 2
+    }
+  ],
+  "funChallenges": [
+    {
+      "id": "fc-1",
+      "type": "fun",
+      "title": "Tantangan Tepuk Semangat",
+      "task": "Pimpin teman-temanmu untuk melakukan 'Tepuk Anak Saleh' atau 'Tepuk Semangat' bersama-sama!",
+      "instruction": "Ayo semua tertawa dan bertepuk tangan bersama!",
+      "points": 2
+    },
+    {
+      "id": "fc-2",
+      "type": "fun",
+      "title": "Senandung Lagu Daerah",
+      "task": "Nyanyikan satu bait lagu daerah Indonesia (contoh: Ampar-Ampar Pisang, Yamko Rambe Yamko, Gundhul Pacul, atau Rasa Sayange)!",
+      "instruction": "Semua teman boleh ikut bersenandung bersama.",
+      "points": 2
+    },
+    {
+      "id": "fc-3",
+      "type": "fun",
+      "title": "Tebak Gerak Profesi",
+      "task": "Peragakan satu profesi (misal: dokter, guru, koki, atau masinis) tanpa bersuara sampai ditebak oleh temanmu!",
+      "instruction": "Gunakan gerak tubuh kreatifmu!",
+      "points": 2
+    },
+    {
+      "id": "fc-4",
+      "type": "fun",
+      "title": "Pantun Ceria Anak Pintar",
+      "task": "Bacakan satu bait pantun jenaka atau nasihat belajar untuk teman-temanmu!",
+      "instruction": "Contoh: 'Pohon jati daunnya rindang, kalau rajin belajar pasti menang!'",
+      "points": 2
+    }
+  ],
+  "storyCards": [
+    {
+      "id": "st-1",
+      "title": "Momen Tolong Menolong",
+      "prompt": "Ceritakan satu pengalaman ketika kamu membantu teman, saudara, atau orang tuamu saat mereka membutuhkan pertolongan.",
+      "subtext": "Bagaimana perasaanmu setelah berhasil menolongnya?",
+      "points": 1
+    },
+    {
+      "id": "st-2",
+      "title": "Cita-Cita Masa Depanku",
+      "prompt": "Jika sudah besar nanti, apa cita-cita impianmu dan apa manfaatnya untuk orang banyak di sekitarmu?",
+      "subtext": "Ceritakan dengan bangga dan penuh senyuman!",
+      "points": 1
+    },
+    {
+      "id": "st-3",
+      "title": "Belajar Hal Baru yang Menyenangkan",
+      "prompt": "Keterampilan atau pelajaran baru apa yang paling membuatmu penasaran dan bangga bisa mempelajarinya di kelas 4 ini?",
+      "subtext": "Bisa berupa berhitung cepat, membaca peta, atau menggambar flora fauna.",
+      "points": 1
+    },
+    {
+      "id": "st-4",
+      "title": "Makanan Khas Daerah Favoritku",
+      "prompt": "Apa makanan tradisional daerah yang paling kamu sukai saat berkumpul bersama keluarga di hari libur?",
+      "subtext": "Ceritakan seperti apa rasa dan kelezatannya!",
+      "points": 1
+    }
+  ],
+  "luckCards": [
+    {
+      "id": "lk-1",
+      "title": "Bintang Kejujuran!",
+      "description": "Kamu mengembalikan buku perpustakaan tepat waktu! Dapatkan bonus +2 Poin Keberuntungan.",
+      "actionType": "bonus_points",
+      "value": 2
+    },
+    {
+      "id": "lk-2",
+      "title": "Sepeda Meluncur Cepat!",
+      "description": "Jalanan desa menurun mulus! Bidakmu melompat maju 2 petak ke depan.",
+      "actionType": "advance_tiles",
+      "value": 2
+    },
+    {
+      "id": "lk-3",
+      "title": "Semangat Membara!",
+      "description": "Dapat energi ekstra dari senyum teman-teman! Kocok dadu sekali lagi sekarang juga!",
+      "actionType": "roll_again",
+      "value": 1
+    },
+    {
+      "id": "lk-4",
+      "title": "Piala Sahabat Baik",
+      "description": "Kamu selalu menyemangati teman bermain! Dapatkan bonus +1 Poin.",
+      "actionType": "bonus_points",
+      "value": 1
+    }
+  ]
+}

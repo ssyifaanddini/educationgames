@@ -1,0 +1,8 @@
+{
+  "name": "Remix GAMBRENG - Ayo Belajar Bareng!",
+  "description": "Board game edukasi digital Kurikulum Merdeka untuk siswa kelas 4 SD dengan petualangan belajar seru lintas mata pelajaran.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

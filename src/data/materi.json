@@ -1,0 +1,245 @@
+[
+  {
+    "id": "mat-1",
+    "title": "Bilangan Cacah Sampai 10.000",
+    "semester": "ganjil",
+    "subjectId": "matematika",
+    "icon": "🔢",
+    "summary": "Membaca, menulis, dan menentukan nilai tempat ribuan, ratusan, puluhan, dan satuan.",
+    "reading": {
+      "summary": "Bilangan cacah adalah bilangan yang dimulai dari 0 (0, 1, 2, 3, ...). Di kelas 4, kita belajar mengenal bilangan hingga 10.000, seperti jumlah penduduk desa, harga barang di koperasi, dan jarak tempuh.",
+      "keyPoints": [
+        "Nilai tempat: Angka 4.752 memiliki 4 Ribuan, 7 Ratusan, 5 Puluhan, dan 2 Satuan.",
+        "Komposisi: 3.000 + 400 + 50 + 9 = 3.459.",
+        "Membandingkan: Bandingkan mulai dari angka ribuan terlebih dahulu, lalu ratusan, puluhan, hingga satuan."
+      ],
+      "funFact": "Tahukah kamu? Jarak dari Sabang ke Merauke adalah sekitar 5.245 km!",
+      "exampleStory": "Andi membantu ayahnya menghitung 1.250 butir kelapa yang dipanen minggu lalu dan 2.100 butir minggu ini. Totalnya adalah 3.350 kelapa!",
+      "externalLink": {
+        "title": "Simulasi Nilai Tempat Interaktif (Kemendikbudristek)",
+        "url": "https://buku.kemdikbud.go.id"
+      }
+    }
+  },
+  {
+    "id": "mat-2",
+    "title": "Pecahan Senilai dan Operasi Hitung",
+    "semester": "ganjil",
+    "subjectId": "matematika",
+    "icon": "🍰",
+    "summary": "Memahami konsep pecahan senilai dengan media gambar dan benda konkret.",
+    "reading": {
+      "summary": "Pecahan menunjukkan bagian dari keseluruhan. Pecahan senilai adalah pecahan yang memiliki nilai yang sama meskipun pembilang dan penyebutnya berbeda.",
+      "keyPoints": [
+        "Pecahan 1/2 sama nilainya dengan 2/4 dan 3/6.",
+        "Untuk mencari pecahan senilai, kalikan atau bagikan pembilang dan penyebut dengan angka yang sama bukan nol.",
+        "Dalam kehidupan sehari-hari, kita membagi kue atau semangka menggunakan pecahan."
+      ],
+      "funFact": "Orang Mesir kuno hanya menulis pecahan dengan pembilang 1, seperti 1/2, 1/3, dan 1/4!",
+      "exampleStory": "Ajeng memotong martabak manis menjadi 8 bagian sama besar. Ajeng memakan 2 bagian (2/8), yang sama persis porsinya dengan 1/4 martabak utuh."
+    }
+  },
+  {
+    "id": "mat-3",
+    "title": "Keliling & Luas Bangun Datar",
+    "semester": "genap",
+    "subjectId": "matematika",
+    "icon": "📐",
+    "summary": "Menghitung keliling dan luas persegi, persegi panjang, dan segitiga.",
+    "reading": {
+      "summary": "Keliling adalah panjang seluruh garis tepi yang membatasi bangun datar. Sedangkan luas adalah besar daerah yang ditutupi oleh bangun tersebut.",
+      "keyPoints": [
+        "Keliling Persegi = 4 x sisi (s)",
+        "Luas Persegi = sisi x sisi (s x s)",
+        "Keliling Persegi Panjang = 2 x (panjang + lebar)",
+        "Luas Persegi Panjang = panjang x lebar (p x l)"
+      ],
+      "funFact": "Lapangan bulu tangkis standar memiliki panjang 13,4 meter dan lebar 6,1 meter.",
+      "exampleStory": "Boris ingin memagari kebun sayur berbentuk persegi berukuran 5 meter di tiap sisinya. Boris butuh pagar bambu sepanjang 4 x 5 = 20 meter!"
+    }
+  },
+  {
+    "id": "ipas-1",
+    "title": "Tumbuhan, Sumber Kehidupan di Bumi",
+    "semester": "ganjil",
+    "subjectId": "ipas",
+    "icon": "🌿",
+    "summary": "Mengenal bagian tubuh tumbuhan dan proses fotosintesis yang menakjubkan.",
+    "reading": {
+      "summary": "Tumbuhan adalah produsen utama di bumi. Tumbuhan hijau memasak makanannya sendiri melalui proses fotosintesis dengan bantuan sinar matahari, air dari tanah, dan karbon dioksida dari udara.",
+      "keyPoints": [
+        "Akar: Menyerap air dan zat hara serta menopang tanaman.",
+        "Batang: Mengalirkan air ke daun dan menyangga daun serta bunga.",
+        "Daun: Tempat terjadinya fotosintesis karena memiliki zat hijau daun (klorofil).",
+        "Hasil fotosintesis: Glukosa (makanan tumbuhan) dan Oksigen (O2) untuk kita bernapas!"
+      ],
+      "funFact": "Satu pohon besar dewasa dapat menghasilkan oksigen yang cukup untuk 2 hingga 4 orang setiap hari!",
+      "exampleStory": "Lestari merawat tanaman lidah buaya di pekarangan rumahnya. Tanaman itu tumbuh subur di tempat yang terkena sinar matahari pagi."
+    }
+  },
+  {
+    "id": "ipas-2",
+    "title": "Wujud Zat dan Perubahannya",
+    "semester": "ganjil",
+    "subjectId": "ipas",
+    "icon": "🧊",
+    "summary": "Memahami benda padat, cair, gas serta perubahan wujud seperti membeku dan mencair.",
+    "reading": {
+      "summary": "Semua materi di sekitar kita memiliki massa dan menempati ruang. Zat memiliki tiga wujud utama: padat, cair, dan gas.",
+      "keyPoints": [
+        "Padat: Bentuk dan volume tetap (misal: batu, kayu).",
+        "Cair: Bentuk mengikuti wadah, volume tetap (misal: air, madu).",
+        "Gas: Bentuk dan volume mengikuti ruang (misal: udara, uap air).",
+        "Mencair (padat ke cair), Membeku (cair ke padat), Menguap (cair ke gas), Mengembun (gas ke cair)."
+      ],
+      "funFact": "Embun pagi di dedaunan bukan berasal dari air hujan, melainkan uap air di udara yang mendingin lalu mengembun!",
+      "exampleStory": "Maria membuat es lilin rasa kacang hijau. Setelah dimasukkan ke dalam freezer lemari es selama beberapa jam, sirup kacang hijau membeku menjadi es padat yang nikmat."
+    }
+  },
+  {
+    "id": "ipas-3",
+    "title": "Gaya dan Pengaruhnya Terhadap Gerak",
+    "semester": "genap",
+    "subjectId": "ipas",
+    "icon": "⚽",
+    "summary": "Eksplorasi gaya otot, gaya gesek, gaya gravitasi, dan gaya magnet.",
+    "reading": {
+      "summary": "Gaya adalah tarikan atau dorongan yang dapat mempengaruhi gerak, kecepatan, maupun bentuk benda.",
+      "keyPoints": [
+        "Gaya otot: Digunakan saat menendang bola atau mengangkat tas sekolah.",
+        "Gaya gesek: Terjadi saat dua permukaan saling bersentuhan, membantu kita agar tidak terpeleset saat berjalan.",
+        "Gaya gravitasi bumi: Menarik semua benda ke pusat bumi sehingga benda yang dilempar ke atas selalu jatuh ke bawah.",
+        "Gaya magnet: Mampu menarik benda-benda logam seperti jarum dan paku besi."
+      ],
+      "funFact": "Rem sepeda memanfaatkan gaya gesek antara karet rem dan velg roda untuk memperlambat laju sepeda!",
+      "exampleStory": "Andi mengayuh perahu Bugis dengan dayung. Gaya otot yang mendorong air ke belakang membuat perahu melaju kencang ke depan!"
+    }
+  },
+  {
+    "id": "indo-1",
+    "title": "Menemukan Ide Pokok & Ide Pendukung",
+    "semester": "ganjil",
+    "subjectId": "bahasa-indonesia",
+    "icon": "📖",
+    "summary": "Membaca teks naratif dan informatif untuk menemukan gagasan utama paragraf.",
+    "reading": {
+      "summary": "Setiap paragraf yang baik memiliki satu ide pokok (gagasan utama) yang dijelaskan lebih lanjut oleh beberapa ide pendukung (kalimat penjelas).",
+      "keyPoints": [
+        "Ide pokok biasanya terletak di awal paragraf (deduktif), di akhir (induktif), atau di keduanya.",
+        "Cara mencari ide pokok: Baca keseluruhan paragraf, temukan kalimat utama, lalu simpulkan hal penting yang dibahas.",
+        "Ide pendukung memberikan rincian, contoh, atau alasan yang memperjelas ide pokok."
+      ],
+      "funFact": "Kosakata bahasa Indonesia diperkaya dari berbagai bahasa daerah dan bahasa asing, dengan lebih dari 120.000 kata di KBBI!",
+      "exampleStory": "Boris membaca artikel tentang tradisi lompat batu (Hombo Batu) di Nias. Ide pokoknya adalah keberanian para pemuda Nias dalam melestarikan budaya leluhur."
+    }
+  },
+  {
+    "id": "indo-2",
+    "title": "Kalimat Transitif dan Intransitif",
+    "semester": "ganjil",
+    "subjectId": "bahasa-indonesia",
+    "icon": "✍️",
+    "summary": "Mengenal unsur Subjek, Predikat, Objek, dan Keterangan (S-P-O-K).",
+    "reading": {
+      "summary": "Kalimat aktif transitif adalah kalimat yang membutuhkan objek (O), sedangkan kalimat intransitif adalah kalimat yang tidak membutuhkan objek.",
+      "keyPoints": [
+        "Transitif: 'Ajeng (S) membatik (P) kain sutra (O) di sanggar (K)'. Tanpa objek 'kain sutra', kalimat ini belum tuntas maknanya.",
+        "Intransitif: 'Maria (S) menari (P) dengan gembira (K)'. Kalimat ini sudah lengkap tanpa objek penderita."
+      ],
+      "funFact": "Bahasa Indonesia tidak mengenal perubahan bentuk kata kerja karena waktu (tenses), melainkan menggunakan kata keterangan waktu seperti 'kemarin' atau 'besok'.",
+      "exampleStory": "Di kelas, Ibu Guru meminta murid menulis contoh kalimat. Lestari menulis: 'Lestari memetik jambu air di kebun nenek' sebagai contoh kalimat transitif."
+    }
+  },
+  {
+    "id": "indo-3",
+    "title": "Teks Petunjuk & Denah Lokasi",
+    "semester": "genap",
+    "subjectId": "bahasa-indonesia",
+    "icon": "🗺️",
+    "summary": "Membaca denah sekolah dan menulis petunjuk langkah demi langkah yang runtut.",
+    "reading": {
+      "summary": "Teks petunjuk berfungsi memandu orang lain agar dapat melakukan atau membuat sesuatu dengan tepat dan aman.",
+      "keyPoints": [
+        "Ciri teks petunjuk: Menggunakan kalimat perintah yang santun, bahasa ringkas, dan urutan yang jelas (nomor 1, 2, 3).",
+        "Arah mata angin utama: Utara, Timur, Selatan, Barat.",
+        "Denah membantu kita menemukan lokasi ruang kelas, perpustakaan, atau kantin sekolah."
+      ],
+      "funFact": "Kompas magnetik pertama kali ditemukan di Tiongkok lebih dari 2.000 tahun yang lalu!",
+      "exampleStory": "Andi menggambar denah sekolah dari pintu gerbang menuju lab komputer agar siswa baru tidak tersesat."
+    }
+  },
+  {
+    "id": "pan-1",
+    "title": "Makna Simbol Sila-Sila Pancasila",
+    "semester": "ganjil",
+    "subjectId": "pancasila",
+    "icon": "⭐",
+    "summary": "Memahami nilai bintang emas, rantai, pohon beringin, kepala banteng, serta padi dan kapas.",
+    "reading": {
+      "summary": "Pancasila adalah dasar negara Republik Indonesia. Garuda Pancasila memiliki perisai di dadanya yang memuat lambang kelima sila.",
+      "keyPoints": [
+        "Sila ke-1 (Bintang Emas): Ketuhanan Yang Maha Esa - saling menghargai agama teman.",
+        "Sila ke-2 (Rantai Emas): Kemanusiaan yang Adil dan Beradab - tolong-menolong tanpa membeda-bedakan.",
+        "Sila ke-3 (Pohon Beringin): Persatuan Indonesia - rukun meski berbeda suku dan bahasa.",
+        "Sila ke-4 (Kepala Banteng): Musyawarah untuk mencapai mufakat saat mengambil keputusan bersama.",
+        "Sila ke-5 (Padi dan Kapas): Keadilan Sosial - hidup hemat dan peduli sesama."
+      ],
+      "funFact": "Jumlah bulu pada Garuda Pancasila melambangkan hari kemerdekaan Indonesia: 17 helai sayap, 8 helai ekor, 19 helai pangkal ekor, dan 45 helai leher!",
+      "exampleStory": "Saat menentukan ketua regu kebersihan, kelas Maria mengadakan musyawarah kelas sesuai pengamalan sila ke-4."
+    }
+  },
+  {
+    "id": "pan-2",
+    "title": "Hak dan Kewajiban Anak di Sekolah",
+    "semester": "genap",
+    "subjectId": "pancasila",
+    "icon": "🤝",
+    "summary": "Keseimbangan antara hak mendapatkan ilmu dan kewajiban menaati tata tertib.",
+    "reading": {
+      "summary": "Hak adalah sesuatu yang berhak kita terima, sedangkan kewajiban adalah sesuatu yang wajib kita lakukan dengan penuh tanggung jawab.",
+      "keyPoints": [
+        "Kewajiban harus didahulukan sebelum menuntut hak.",
+        "Kewajiban siswa: Memperhatikan guru mengajar, menjaga kebersihan kelas, datang tepat waktu.",
+        "Hak siswa: Mendapat bimbingan guru, meminjam buku di perpustakaan, merasa aman dan nyaman saat belajar."
+      ],
+      "funFact": "Semboyan 'Bhinneka Tunggal Ika' diambil dari Kitab Sutasoma karangan Mpu Tantular pada zaman Kerajaan Majapahit.",
+      "exampleStory": "Boris dan teman-temannya membersihkan kelas bersama sebelum bel berbunyi. Setelah kelas bersih, mereka dapat belajar dengan tenang dan gembira."
+    }
+  },
+  {
+    "id": "ing-1",
+    "title": "Daily Activities & Telling Time",
+    "semester": "ganjil",
+    "subjectId": "bahasa-inggris",
+    "icon": "⏰",
+    "summary": "Learning to tell time and describe our daily routines in simple English.",
+    "reading": {
+      "summary": "In Grade 4 English, we learn how to talk about our morning habits and telling the time using o'clock, past, and to.",
+      "keyPoints": [
+        "Telling Time: 'It is seven o'clock' (07.00), 'It is half past six' (06.30).",
+        "Daily Routine: 'I wake up at six o'clock', 'I brush my teeth', 'I eat breakfast', 'I go to school'.",
+        "Questions: 'What time do you study?' - 'I study at seven in the evening'."
+      ],
+      "funFact": "English is spoken by more than 1.5 billion people around the world as either their native or second language!",
+      "exampleStory": "Maria wakes up at five o'clock in the morning. She says, 'Good morning, Mom! I am ready for school today!'"
+    }
+  },
+  {
+    "id": "ing-2",
+    "title": "Rooms in My House & Prepositions",
+    "semester": "genap",
+    "subjectId": "bahasa-inggris",
+    "icon": "🏡",
+    "summary": "Naming rooms like living room, kitchen, bedroom, and using in, on, under.",
+    "reading": {
+      "summary": "We describe where family members and objects are located in our house using prepositions of place.",
+      "keyPoints": [
+        "Rooms: Living room (ruang tamu), Bedroom (kamar tidur), Kitchen (dapur), Bathroom (kamar mandi).",
+        "Prepositions: in (di dalam), on (di atas), under (di bawah), beside/next to (di samping).",
+        "Example: 'The book is on the desk', 'Father is drinking tea in the living room'."
+      ],
+      "funFact": "Traditional houses in Indonesia like Rumah Tongkonan, Rumah Gadang, and Honai are world-renowned for their unique architecture!",
+      "exampleStory": "Ajeng looks for her ruler: 'Where is my ruler?' Andi helps: 'Look, it is on the table next to your pencil case!'"
+    }
+  }
+]

@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Fredoka', 'Baloo 2', cursive, sans-serif;
+    --font-body: 'Nunito', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Chunky 3D Toy Button effect */
+.btn-chunky {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  user-select: none;
+}
+.btn-chunky:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 transparent !important;
+}
+
+/* Hop animation for pawns */
+@keyframes pawn-hop {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  30% {
+    transform: translateY(-22px) scale(0.9, 1.15);
+  }
+  60% {
+    transform: translateY(-12px) scale(1, 1.05);
+  }
+  85% {
+    transform: translateY(0) scale(1.2, 0.8);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+.animate-pawn-hop {
+  animation: pawn-hop 0.45s ease-in-out;
+}
+
+/* Gentle character idle bounce */
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-gentle-bounce {
+  animation: gentle-bounce 2.6s infinite ease-in-out;
+}
+
+/* 3D Floating Logo with depth, tilt and dimensional pop */
+@keyframes logo-float-3d {
+  0%, 100% {
+    transform: perspective(900px) rotateX(4deg) rotateY(-3.5deg) rotateZ(0.5deg) translateY(0px) translateZ(12px);
+    filter: drop-shadow(0 18px 24px rgba(0,0,0,0.32)) drop-shadow(0 6px 0 rgba(194, 65, 12, 0.45)) drop-shadow(0 -1px 3px rgba(255, 255, 255, 0.8));
+  }
+  50% {
+    transform: perspective(900px) rotateX(-3.5deg) rotateY(3.5deg) rotateZ(-0.5deg) translateY(-10px) translateZ(28px);
+    filter: drop-shadow(0 26px 32px rgba(0,0,0,0.26)) drop-shadow(0 8px 0 rgba(194, 65, 12, 0.55)) drop-shadow(0 -2px 5px rgba(255, 255, 255, 0.95));
+  }
+}
+
+.animate-logo-3d {
+  animation: logo-float-3d 4.5s ease-in-out infinite;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+/* Twinkling stars for night mode */
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.95));
+  }
+}
+
+.animate-star-twinkle {
+  animation: star-twinkle 2.8s ease-in-out infinite;
+}
+
+/* Floating firefly glow */
+@keyframes firefly-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(12px, -15px) scale(1.2);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.9));
+  }
+}
+
+.animate-firefly {
+  animation: firefly-float 4.2s ease-in-out infinite;
+}
+
+/* Wobble for wrong answer / try again */
+@keyframes friendly-wobble {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  20% { transform: rotate(-6deg) scale(1.05); }
+  40% { transform: rotate(6deg) scale(1.05); }
+  60% { transform: rotate(-4deg); }
+  80% { transform: rotate(4deg); }
+}
+
+.animate-wobble {
+  animation: friendly-wobble 0.6s ease-in-out;
+}
+
+/* Cloud drift */
+@keyframes cloud-drift {
+  0% { transform: translateX(-10%); }
+  50% { transform: translateX(10%); }
+  100% { transform: translateX(-10%); }
+}
+
+.animate-drift {
+  animation: cloud-drift 24s infinite ease-in-out;
+}
+
+/* Smooth Screen Fade-in Transition */
+@keyframes screen-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-screen-enter {
+  animation: screen-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-screen-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Print styling for certificates */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+}
