@@ -8,6 +8,7 @@ import { Users, Clock, Sparkles, Plus, Trash2, ArrowLeft, Play, UserCheck, Star,
 
 interface GameSetupScreenProps {
   subject: Subject;
+  initialMateriFilter?: string;
   onBack: () => void;
   onStartGame: (players: Player[], timeMode: TimeMode, enableLuckCards: boolean, materiFilter: string) => void;
 }
@@ -88,6 +89,7 @@ const PLAYER_COUNT_OPTIONS = [
 
 export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
   subject,
+  initialMateriFilter = 'all',
   onBack,
   onStartGame,
 }) => {
@@ -99,7 +101,7 @@ export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
 
   const [timeMode, setTimeMode] = useState<TimeMode>('30m');
   const [enableLuckCards, setEnableLuckCards] = useState<boolean>(true);
-  const [selectedMateri, setSelectedMateri] = useState<string>('all');
+  const [selectedMateri, setSelectedMateri] = useState<string>(initialMateriFilter || 'all');
 
   // Characters already chosen by any player
   const chosenCharacterIds = playerDrafts.map((p) => p.characterId);

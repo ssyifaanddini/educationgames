@@ -134,13 +134,17 @@ export default function App() {
             <MateriScreen
               subject={selectedSubject}
               onBack={() => setCurrentScreen('subject-action')}
-              onNavigatePlay={() => setCurrentScreen('game-setup')}
+              onNavigatePlay={(filter?: string) => {
+                if (filter) setMateriFilter(filter);
+                setCurrentScreen('game-setup');
+              }}
             />
           )}
 
           {currentScreen === 'game-setup' && (
             <GameSetupScreen
               subject={selectedSubject}
+              initialMateriFilter={materiFilter}
               onBack={() => setCurrentScreen('subject-action')}
               onStartGame={handleStartGameSetup}
             />

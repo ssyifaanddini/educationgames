@@ -87,9 +87,9 @@ export const SubjectActionScreen: React.FC<SubjectActionScreenProps> = ({
                 📚
               </div>
               <div>
-                <span className="block leading-tight">Materi</span>
+                <span className="block leading-tight">Ayo Belajar Dulu!</span>
                 <span className="block text-xs sm:text-sm font-sans font-bold text-amber-900/90 mt-0.5">
-                  Pelajari topik Semester Ganjil & Genap
+                  Materi Bab Semester Ganjil & Genap • Peta Materi
                 </span>
               </div>
             </div>
