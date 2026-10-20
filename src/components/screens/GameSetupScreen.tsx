@@ -487,10 +487,12 @@ export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
             </span>
             <span>Batas Waktu Bermain:</span>
           </label>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-2.5">
             {[
+              { id: '15m', label: '15 Menit', hint: 'Kilat & Cepat', activeStyle: 'bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-[0_4px_0_#0369a1] border-sky-300' },
               { id: '30m', label: '30 Menit', hint: 'Santai & Seru', activeStyle: 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-[0_4px_0_#0f766e] border-teal-300' },
-              { id: '60m', label: '60 Menit', hint: 'Petualangan Penuh', activeStyle: 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_4px_0_#b45309] border-amber-300' },
+              { id: '45m', label: '45 Menit', hint: 'Pas & Mantap', activeStyle: 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_4px_0_#c2410c] border-amber-300' },
+              { id: '60m', label: '60 Menit', hint: 'Petualangan Penuh', activeStyle: 'bg-gradient-to-r from-rose-500 to-red-500 text-white shadow-[0_4px_0_#b91c1c] border-rose-300' },
               { id: 'unlimited', label: 'Tanpa Batas', hint: 'Bebas Sampai Finis', activeStyle: 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-[0_4px_0_#581c87] border-purple-300' },
             ].map((mode) => {
               const isSelected = timeMode === mode.id;

@@ -117,7 +117,16 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
   const [storyTextInput, setStoryTextInput] = useState<string>('');
 
   // Timer State
-  const initialSeconds = timeMode === '30m' ? 30 * 60 : timeMode === '60m' ? 60 * 60 : 0;
+  const initialSeconds =
+    timeMode === '15m'
+      ? 15 * 60
+      : timeMode === '30m'
+      ? 30 * 60
+      : timeMode === '45m'
+      ? 45 * 60
+      : timeMode === '60m'
+      ? 60 * 60
+      : 0;
   const [secondsLeft, setSecondsLeft] = useState<number>(initialSeconds);
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
@@ -300,6 +309,12 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
       const filtered = pool.filter((q) => q.materiCode === materiFilter);
       if (filtered.length > 0) pool = filtered;
     }
+    if (subject.id !== 'pancasila') {
+      const otherHigh = (questionsData.questions as QuestionCard[]).filter(
+        (q) => q.subjectId === subject.id && (q.level === 'high' || q.level === 'middle')
+      );
+      if (otherHigh.length > 0) pool = otherHigh;
+    }
     const unused = pool.filter((q) => !usedQuestionCodes.includes(q.code || q.id));
     const candidates = unused.length > 0 ? unused : pool;
     const randomQ = candidates[Math.floor(Math.random() * candidates.length)];
@@ -345,10 +360,31 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
           lowerTyped.includes(activeQuestion.correctAnswer.toLowerCase().trim());
       } else {
         // Essay / Uraian / Matching: at least 1 keyword match or thoughtful written response
-        correct = matchedKeywords.length >= 1 || typed.length >= 15;
+        correct = matchedKeywords.length >= 1 || typed.length >= 12;
       }
     } else {
-      correct = lowerTyped.includes(activeQuestion.correctAnswer.toLowerCase().trim());
+      const correctLower = activeQuestion.correctAnswer.toLowerCase().trim();
+      const directMatch =
+        lowerTyped.includes(correctLower) ||
+        correctLower.includes(lowerTyped) ||
+        (activeQuestion.type === 'essay' && typed.length >= 12);
+
+      // Check option letter match (e.g. user typed 'a' or 'A' or 'b' or 'B')
+      let optionMatch = false;
+      if (activeQuestion.options && activeQuestion.options.length > 0) {
+        const correctOptIdx = activeQuestion.options.findIndex(
+          (opt) => opt.toLowerCase().trim() === correctLower
+        );
+        if (correctOptIdx !== -1) {
+          const letter = String.fromCharCode(65 + correctOptIdx).toLowerCase();
+          const cleanTyped = lowerTyped.replace(/[^a-z0-9]/g, '');
+          if (cleanTyped === letter) {
+            optionMatch = true;
+          }
+        }
+      }
+
+      correct = directMatch || optionMatch;
     }
 
     setIsAnswerCorrect(correct);
@@ -844,6 +880,43 @@ export const GameBoardScreen: React.FC<GameBoardScreenProps> = ({
                         {shortAnswerInput.trim().length} karakter
                       </span>
                     </label>
+
+                    {/* Multiple choice options if present */}
+                    {activeQuestion.options && activeQuestion.options.length > 0 && (
+                      <div className="mb-3">
+                        <span className="text-[11px] font-bold text-amber-800 dark:text-amber-300 block mb-1.5">
+                          Pilihan Jawaban (Klik atau ketik di kolom):
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                          {activeQuestion.options.map((opt, i) => {
+                            const letter = String.fromCharCode(65 + i);
+                            const isChosen =
+                              shortAnswerInput.trim() === opt ||
+                              shortAnswerInput.trim().toUpperCase() === letter;
+                            return (
+                              <button
+                                key={i}
+                                type="button"
+                                onClick={() => {
+                                  audio.playClick();
+                                  setShortAnswerInput(opt);
+                                }}
+                                className={`p-2.5 rounded-xl text-left text-xs font-bold border-2 transition-all cursor-pointer ${
+                                  isChosen
+                                    ? 'bg-amber-400 text-amber-950 border-amber-600 shadow-xs'
+                                    : 'bg-white/80 dark:bg-[#4d3c26] text-amber-900 dark:text-amber-100 border-amber-200 dark:border-amber-700 hover:bg-amber-100'
+                                }`}
+                              >
+                                <span className="inline-block w-5 h-5 rounded-full bg-amber-500/20 text-center leading-5 font-black mr-1.5 text-amber-950 dark:text-amber-100">
+                                  {letter}
+                                </span>
+                                {opt}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
 
                     {activeQuestion.formType === 'Jawaban singkat' || activeQuestion.type === 'short' ? (
                       <input

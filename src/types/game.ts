@@ -123,7 +123,7 @@ export interface BoardTile {
   label?: string;
 }
 
-export type TimeMode = '30m' | '60m' | 'unlimited';
+export type TimeMode = '15m' | '30m' | '45m' | '60m' | 'unlimited';
 
 export type ScreenState = 
   | 'cover'
